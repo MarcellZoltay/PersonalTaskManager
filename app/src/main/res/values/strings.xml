@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">PersonalTaskManager</string>
+    <string name="tasks">Tasks</string>
+    <string name="statistic">Statistic</string>
+
+    <string name="next7days">Next 7 days</string>
+    <string name="today">Today</string>
+    <string name="projects">Projects</string>
+    <string name="completed_tasks">Completed</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="overdue">Overdue</string>
+    <string name="new_project">New Project</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="title">Title</string>
+</resources>
