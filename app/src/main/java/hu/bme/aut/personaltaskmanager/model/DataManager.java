@@ -13,9 +13,9 @@ public class DataManager {
 
     private DataManager() {
         projects = new ArrayList<>();
-        projects.add(new Project("Shopping"));
-        projects.add(new Project("Paying bills"));
-        projects.add(new Project("Work"));
+        //projects.add(new Project("Shopping"));
+        //projects.add(new Project("Paying bills"));
+        //projects.add(new Project("Work"));
 
         //loadItemsInBackground();
 
