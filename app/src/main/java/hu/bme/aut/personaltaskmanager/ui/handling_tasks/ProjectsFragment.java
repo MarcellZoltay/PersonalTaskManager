@@ -17,6 +17,8 @@ import hu.bme.aut.personaltaskmanager.model.ProjectRecyclerAdapter;
 
 public class ProjectsFragment extends Fragment implements NewProjectDialogFragment.INewProjectDialogListener {
 
+    public static final int REQUEST_CODE = 100;
+
     private RecyclerView recyclerView;
     private ProjectRecyclerAdapter adapter;
 
@@ -26,14 +28,14 @@ public class ProjectsFragment extends Fragment implements NewProjectDialogFragme
                              @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_projects, container, false);
 
+        final Fragment frag = this;
         FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fabProject);
         fab.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
-               //new NewShoppingItemDialogFragment().show(getSupportFragmentManager(), NewShoppingItemDialogFragment.TAG);
-               //TODO: new project dialog fragment
-               //FragmentManager fm = getActivity().getSupportFragmentManager();
-               //new NewProjectDialogFragment().show(getFragmentManager(), NewProjectDialogFragment.TAG);
+               NewProjectDialogFragment dialog = new NewProjectDialogFragment();
+               dialog.setTargetFragment(frag, REQUEST_CODE);
+               dialog.show(getFragmentManager(), NewProjectDialogFragment.TAG);
             }
        });
 
@@ -47,8 +49,9 @@ public class ProjectsFragment extends Fragment implements NewProjectDialogFragme
 
     @Override
     public void onProjectCreated(Project newProject) {
-        adapter.addProject(newProject);
+        //adapter.addProject(newProject);
+        adapter.projectAdded();
         DataManager.getInstance().addProject(newProject);
-        newProject.save();
+        //newProject.save();
     }
 }

@@ -19,7 +19,6 @@ public class ProjectRecyclerAdapter extends RecyclerView.Adapter<ProjectRecycler
 
     public ProjectRecyclerAdapter(){
         projects = DataManager.getInstance().getProjects();
-        //projects = new ArrayList<>();
     }
 
     @Override
@@ -49,10 +48,14 @@ public class ProjectRecyclerAdapter extends RecyclerView.Adapter<ProjectRecycler
         return projects.size();
     }
 
+    //TODO: other list for projects or just send notification
     public void addProject(Project p) {
         projects.add(p);
-        //p.save();
         notifyItemInserted(projects.size() - 1);
+    }
+
+    public void projectAdded(){
+        notifyDataSetChanged();
     }
 
     //public void update(List<Project> shoppingItems) {

@@ -22,7 +22,6 @@ public class NewProjectDialogFragment extends DialogFragment {
     public interface INewProjectDialogListener {
         void onProjectCreated(Project newProject);
     }
-
     private INewProjectDialogListener listener;
 
     private EditText titleEditText;
@@ -30,12 +29,13 @@ public class NewProjectDialogFragment extends DialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fragment fragment = getFragmentManager().getFragments().get(getFragmentManager().getFragments().size()-2);
+        Fragment fragment = getTargetFragment();
         if (fragment instanceof INewProjectDialogListener) {
             listener = (INewProjectDialogListener) fragment;
         } else {
-            throw new RuntimeException("Activity must implement the INewShoppingItemDialogListener interface!");
+            throw new RuntimeException("Fragment/Activity must implement the INewProjectDialogListener interface!");
         }
+
     }
 
     @NonNull
@@ -59,7 +59,6 @@ public class NewProjectDialogFragment extends DialogFragment {
                     private Project getProject() {
                         Project p = new Project();
                         p.setTitle(titleEditText.getText().toString());
-                        //p.save();
                         return p;
                     }
                 })
