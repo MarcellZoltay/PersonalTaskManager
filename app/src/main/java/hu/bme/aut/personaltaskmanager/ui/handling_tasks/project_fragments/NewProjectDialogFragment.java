@@ -1,4 +1,4 @@
-package hu.bme.aut.personaltaskmanager.ui.handling_tasks;
+package hu.bme.aut.personaltaskmanager.ui.handling_tasks.project_fragments;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -35,7 +35,6 @@ public class NewProjectDialogFragment extends DialogFragment {
         } else {
             throw new RuntimeException("Fragment/Activity must implement the INewProjectDialogListener interface!");
         }
-
     }
 
     @NonNull

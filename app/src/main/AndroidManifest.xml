@@ -17,13 +17,22 @@
             </intent-filter>
         </activity>
 
-        <meta-data android:name="DATABASE" android:value="projects.db" />
-        <meta-data android:name="VERSION" android:value="7" />
-        <meta-data android:name="QUERY_LOG" android:value="true" />
-        <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="hu.bme.aut.personaltaskmanager"/>
+        <meta-data
+            android:name="DATABASE"
+            android:value="projects.db" />
+        <meta-data
+            android:name="VERSION"
+            android:value="7" />
+        <meta-data
+            android:name="QUERY_LOG"
+            android:value="true" />
+        <meta-data
+            android:name="DOMAIN_PACKAGE_NAME"
+            android:value="hu.bme.aut.personaltaskmanager" />
 
         <activity android:name=".ui.handling_tasks.TasksActivity" />
-        <activity android:name=".ui.statistic.StatisticsActivity"></activity>
+        <activity android:name=".ui.statistic.StatisticsActivity" />
+        <activity android:name=".ui.handling_tasks.TasksOfProjectActivity" />
     </application>
 
 </manifest>
