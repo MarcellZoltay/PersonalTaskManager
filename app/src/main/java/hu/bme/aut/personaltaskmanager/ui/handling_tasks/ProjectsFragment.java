@@ -1,5 +1,6 @@
 package hu.bme.aut.personaltaskmanager.ui.handling_tasks;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -14,19 +15,19 @@ import hu.bme.aut.personaltaskmanager.R;
 import hu.bme.aut.personaltaskmanager.model.DataManager;
 import hu.bme.aut.personaltaskmanager.model.Project;
 import hu.bme.aut.personaltaskmanager.model.ProjectRecyclerAdapter;
+import hu.bme.aut.personaltaskmanager.ui.handling_tasks.project_fragments.NewProjectDialogFragment;
 
 public class ProjectsFragment extends Fragment implements NewProjectDialogFragment.INewProjectDialogListener {
 
-    public static final int REQUEST_CODE = 100;
+    public static final int ADD_PROJECT_REQUEST_CODE = 100;
 
     private RecyclerView recyclerView;
     private ProjectRecyclerAdapter adapter;
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_projects, container, false);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        final View rootView = inflater.inflate(R.layout.fragment_projects, container, false);
 
         final Fragment frag = this;
         FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fabProject);
@@ -34,14 +35,24 @@ public class ProjectsFragment extends Fragment implements NewProjectDialogFragme
            @Override
            public void onClick(View view) {
                NewProjectDialogFragment dialog = new NewProjectDialogFragment();
-               dialog.setTargetFragment(frag, REQUEST_CODE);
+               dialog.setTargetFragment(frag, ADD_PROJECT_REQUEST_CODE);
                dialog.show(getFragmentManager(), NewProjectDialogFragment.TAG);
             }
        });
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.ProjectRecyclerView);
-        adapter = new ProjectRecyclerAdapter();
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter = new ProjectRecyclerAdapter(new OnProjectSelectedListener() {
+            @Override
+            public void onProjectSelected(int projectPosition) {
+                // Todo: új TasksOfProjectActivity indítása a kiválaszott project-tel
+                Intent showTasksIntent = new Intent();
+                showTasksIntent.setClass(getContext(), TasksOfProjectActivity.class)
+                        .putExtra(getString(R.string.project_name), DataManager.getInstance().getProject(projectPosition).getTitle())
+                        .putExtra(getString(R.string.project_position), projectPosition);
+                startActivity(showTasksIntent);
+            }
+        });
         recyclerView.setAdapter(adapter);
 
         return rootView;

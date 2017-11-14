@@ -17,11 +17,11 @@ public class TasksActivity extends FragmentActivity {
         setContentView(R.layout.activity_tasks);
 
         TasksPagerAdapter adapter = new TasksPagerAdapter(getSupportFragmentManager(), FragmentPagerItems.with(this)
+                .add(R.string.projects, ProjectsFragment.class)
                 .add(R.string.today, TodayFragment.class)
                 .add(R.string.next7days, Next7DaysFragment.class)
                 .add(R.string.completed_tasks, CompletedTasksFragment.class)
-                .add(R.string.overdue, OverdueTasksFragment.class)
-                .add(R.string.projects, ProjectsFragment.class)
+                .add(R.string.overdue_tasks, OverdueTasksFragment.class)
                 .create());
 
         ViewPager vpTasks = (ViewPager) findViewById(R.id.viewpager);

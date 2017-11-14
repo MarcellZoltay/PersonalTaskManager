@@ -44,8 +44,9 @@ public class DataManager {
     public List<Project> getProjects(){
         return projects;
     }
+    public Project getProject(int position) { return projects.get(position); }
+    public void addProject(Project p){ projects.add(p); }
 
-    public void addProject(Project p){
-        projects.add(p);
-    }
+    public List<Task> getTasks(int index) { return projects.get(index).getTasks(); }
+    public void addTask(int index, Task t){ projects.get(index).addTask(t); }
 }

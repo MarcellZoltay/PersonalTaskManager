@@ -12,13 +12,16 @@ import android.widget.TextView;
 import java.util.List;
 
 import hu.bme.aut.personaltaskmanager.R;
+import hu.bme.aut.personaltaskmanager.ui.handling_tasks.OnProjectSelectedListener;
 
 public class ProjectRecyclerAdapter extends RecyclerView.Adapter<ProjectRecyclerAdapter.ProjectViewHolder>{
 
     private List<Project> projects;
+    private OnProjectSelectedListener listener;
 
-    public ProjectRecyclerAdapter(){
+    public ProjectRecyclerAdapter(OnProjectSelectedListener listener){
         projects = DataManager.getInstance().getProjects();
+        this.listener = listener;
     }
 
     @Override
@@ -29,18 +32,9 @@ public class ProjectRecyclerAdapter extends RecyclerView.Adapter<ProjectRecycler
     }
 
     @Override
-    public void onBindViewHolder(ProjectViewHolder holder, final int position) {
+    public void onBindViewHolder(ProjectViewHolder holder, int position) {
         Project project = projects.get(position);
-
         holder.titleTextView.setText(project.getTitle());
-        holder.removeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Project p = projects.remove(position);
-                //p.delete();
-                notifyItemRemoved(position);
-            }
-        });
     }
 
     @Override
@@ -48,7 +42,7 @@ public class ProjectRecyclerAdapter extends RecyclerView.Adapter<ProjectRecycler
         return projects.size();
     }
 
-    //TODO: other list for projects or just send notification
+    //TODO: other list for projects in this class or just send notification
     public void addProject(Project p) {
         projects.add(p);
         notifyItemInserted(projects.size() - 1);
@@ -69,6 +63,7 @@ public class ProjectRecyclerAdapter extends RecyclerView.Adapter<ProjectRecycler
 
         ImageView iconImageView;
         TextView titleTextView;
+        ImageButton editButton;
         ImageButton removeButton;
 
         public ProjectViewHolder(View itemView) {
@@ -76,7 +71,33 @@ public class ProjectRecyclerAdapter extends RecyclerView.Adapter<ProjectRecycler
 
             iconImageView = (ImageView) itemView.findViewById(R.id.ProjectFolderIconImageView);
             titleTextView = (TextView) itemView.findViewById(R.id.ProjectTitle);
+            editButton = (ImageButton) itemView.findViewById(R.id.ProjectEditButton);
+            //TODO: implementation of the edit button
+            editButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
             removeButton = (ImageButton) itemView.findViewById(R.id.ProjectRemoveButton);
+            removeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Project p = projects.remove(getAdapterPosition());
+                    p.clearTasks();
+                    //p.delete();
+                    notifyItemRemoved(getAdapterPosition());
+                }
+            });
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (listener != null) {
+                        listener.onProjectSelected(getAdapterPosition());
+                    }
+                }
+            });
         }
     }
 }

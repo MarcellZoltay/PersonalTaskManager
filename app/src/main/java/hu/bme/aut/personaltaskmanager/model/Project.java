@@ -26,11 +26,11 @@ public class Project extends SugarRecord {
         return tasks.remove(i);
     }
 
-    public String getTitle() {
-        return title;
-    }
+    public String getTitle() { return title; }
     public void setTitle(String title) {
         this.title = title;
     }
 
+    public List<Task> getTasks() { return tasks; }
+    public void clearTasks(){ tasks.clear(); }
 }
