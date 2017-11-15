@@ -25,6 +25,7 @@ public class NewTaskDialogFragment extends DialogFragment {
     private INewTaskDialogListener listener;
 
     private EditText titleEditText;
+    private EditText noteEditText;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class NewTaskDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         return new AlertDialog.Builder(getContext())
-                .setTitle(getArguments().getString(getString(R.string.project_name)))
+                .setTitle(getString(R.string.new_task) + getArguments().getString(getString(R.string.project_name)))
                 .setView(getContentView())
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
@@ -56,6 +57,7 @@ public class NewTaskDialogFragment extends DialogFragment {
                     private Task getTask() {
                         Task t = new Task();
                         t.setTitle(titleEditText.getText().toString());
+                        t.setNote(noteEditText.getText().toString());
                         return t;
                     }
                 })
@@ -66,6 +68,7 @@ public class NewTaskDialogFragment extends DialogFragment {
     private View getContentView() {
         View contentView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_new_task, null);
         titleEditText = (EditText) contentView.findViewById(R.id.TaskTitleEditText);
+        noteEditText = (EditText) contentView.findViewById(R.id.TaskNoteEditText);
         return contentView;
     }
 }

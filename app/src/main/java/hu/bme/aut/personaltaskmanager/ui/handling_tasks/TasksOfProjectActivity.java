@@ -50,6 +50,6 @@ public class TasksOfProjectActivity extends AppCompatActivity implements NewTask
     @Override
     public void onTaskCreated(Task newTask) {
         DataManager.getInstance().addTask(projectPosition, newTask);
-        adapter.addNewTask(newTask);
+        adapter.newTaskAdded();
     }
 }

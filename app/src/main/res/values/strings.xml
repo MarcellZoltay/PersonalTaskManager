@@ -13,9 +13,15 @@
     <string name="new_project">New Project</string>
     <string name="title">Title</string>
 
+    <string name="project_name">Project Name</string>
+    <string name="project_position">Project position</string>
+
+    <string name="new_task">New Task in </string>
+    <string name="note">Note</string>
+
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
 
-    <string name="project_name">Project Name</string>
-    <string name="project_position">Project position</string>
+
+
 </resources>

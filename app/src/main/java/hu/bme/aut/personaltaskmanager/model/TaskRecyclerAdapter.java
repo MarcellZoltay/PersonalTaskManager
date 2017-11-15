@@ -61,10 +61,7 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
         return tasks.size();
     }
 
-    public void addNewTask(Task t){
-        //tasks.add(t);
-        notifyDataSetChanged();
-    }
+    public void newTaskAdded(){ notifyDataSetChanged(); }
 
     public class TaskViewHolder extends RecyclerView.ViewHolder{
 
