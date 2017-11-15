@@ -16,4 +16,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <!--TODO: Date -->
+
+    <!--TODO: Duration time -->
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/note"
+        />
+
+    <EditText
+        android:id="@+id/TaskNoteEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
 </LinearLayout>
