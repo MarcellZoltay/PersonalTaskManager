@@ -35,7 +35,7 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
     public void onBindViewHolder(TaskViewHolder holder, int position) {
         Task task = tasks.get(position);
         holder.titleTextView.setText(task.getTitle());
-        holder.dateTextView.setText(getFormattedDate(task.getDate(), "yyyy.MM.dd HH:mm"));
+        holder.dateTextView.setText(getFormattedDate(task.getDate(), "yyyy.MM.dd. HH:mm"));
         holder.isDoneCheckbox.setChecked(task.isDone());
     }
 
