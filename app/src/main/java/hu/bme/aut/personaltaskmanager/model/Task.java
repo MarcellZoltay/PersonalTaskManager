@@ -2,21 +2,17 @@ package hu.bme.aut.personaltaskmanager.model;
 
 import com.orm.SugarRecord;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 public class Task extends SugarRecord {
     private String title;
     private String project;
-    private Date date;
+    private long date;
     private int durationTime;
     private boolean done;
     private boolean overdue;
     private String note;
-    private List<Date> reminders;
+    //private List<long> reminders;
 
-    public Task(){ reminders = new ArrayList<>(); }
+    public Task(){ /*reminders = new ArrayList<>();*/ }
 
     public String getTitle() {
         return title;
@@ -28,8 +24,8 @@ public class Task extends SugarRecord {
     public String getProject() { return project; }
     public void setProject(String project) { this.project = project; }
 
-    public Date getDate() { return date; }
-    public void setDate(Date date) { this.date = date; }
+    public long getDate() { return date; }
+    public void setDate(long date) { this.date = date; }
 
     public int getDurationTime() { return durationTime; }
     public void setDurationTime(int durationTime) { this.durationTime = durationTime; }

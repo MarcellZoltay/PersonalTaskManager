@@ -11,6 +11,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import hu.bme.aut.personaltaskmanager.R;
 import hu.bme.aut.personaltaskmanager.model.Project;
@@ -52,7 +53,13 @@ public class NewProjectDialogFragment extends DialogFragment {
                     }
 
                     private boolean isValid() {
-                        return titleEditText.getText().length() > 0;
+                        boolean res = true;
+                        if(!(titleEditText.getText().length() > 0)){
+                            res = false;
+                            Toast.makeText(getContext(), R.string.new_project_error_toast_msg, Toast.LENGTH_SHORT).show();
+                        }
+
+                        return res;
                     }
 
                     private Project getProject() {
