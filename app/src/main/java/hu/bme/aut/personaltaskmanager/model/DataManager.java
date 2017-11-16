@@ -13,7 +13,7 @@ public class DataManager {
 
     private DataManager() {
         projects = new ArrayList<>();
-
+        projects.add(new Project("proba"));
         //loadItemsInBackground();
     }
 

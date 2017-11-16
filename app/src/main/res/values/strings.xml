@@ -17,11 +17,15 @@
     <string name="project_position">Project position</string>
 
     <string name="new_task">New Task in </string>
+    <string name="date">Date</string>
+    <string name="duration_time">Duration</string>
     <string name="note">Note</string>
 
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
-
-
+    <string name="bundle_date_parts">BUNDLE DATE PARTS</string>
+    <string name="bundle_time_parts">BUNDLE_TIME_PARTS</string>
+    <string name="new_task_error_toast_msg">Missing title or date</string>
+    <string name="new_project_error_toast_msg">Missing title</string>
 
 </resources>

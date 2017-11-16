@@ -1,35 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="24dip">
+    android:clipToPadding="false"
+    android:padding="4dp"
+    android:scrollbarStyle="outsideInset">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/title"/>
-
-    <EditText
-        android:id="@+id/TaskTitleEditText"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <!--TODO: Date -->
-
-    <!--TODO: Duration time -->
-
-
-    <TextView
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/note"
-        />
+        android:orientation="vertical"
+        android:padding="18dip">
 
-    <EditText
-        android:id="@+id/TaskNoteEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
 
-</LinearLayout>
+        <!-- TITLE -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title" />
+
+        <EditText
+            android:id="@+id/TaskTitleEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!--Date -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/date" />
+
+        <Button
+            android:id="@+id/TaskDateButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:text="DATE" />
+
+        <Button
+            android:id="@+id/TaskTimeButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:text="TIME"/>
+
+        <!-- NOTE -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/note" />
+
+        <EditText
+            android:id="@+id/TaskNoteEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</ScrollView>

@@ -4,10 +4,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import hu.bme.aut.personaltaskmanager.R;
@@ -31,6 +35,17 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
     public void onBindViewHolder(TaskViewHolder holder, int position) {
         Task task = tasks.get(position);
         holder.titleTextView.setText(task.getTitle());
+        holder.dateTextView.setText(getFormattedDate(task.getDate(), "yyyy.MM.dd HH:mm"));
+        holder.isDoneCheckbox.setChecked(task.isDone());
+    }
+
+    private String getFormattedDate(long date, String dateFormat)
+    {
+        DateFormat formatter = new SimpleDateFormat(dateFormat);
+
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(date);
+        return formatter.format(c.getTime());
     }
 
     //@Override
@@ -66,15 +81,32 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
     public class TaskViewHolder extends RecyclerView.ViewHolder{
 
         ImageView iconImageView;
+        CheckBox isDoneCheckbox;
         TextView titleTextView;
+        TextView dateTextView;
         ImageButton editButton;
         ImageButton removeButton;
 
         public TaskViewHolder(View itemView) {
             super(itemView);
 
-            iconImageView = (ImageView) itemView.findViewById(R.id.TaskFolderIconImageView);
+            //iconImageView = (ImageView) itemView.findViewById(R.id.TaskFolderIconImageView);
+            isDoneCheckbox = (CheckBox) itemView.findViewById(R.id.TaskDoneCheckBox);
+            // TODO: implement checkbox click
+            isDoneCheckbox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    boolean checked = isDoneCheckbox.isChecked();
+                    //      Log.d(TAG, "onClick: checked = " + checked + " in position "
+                    //              + holder.getAdapterPosition());
+                    tasks.get(getAdapterPosition()).setDone(checked);
+                    // TODO: notify recycle view, remove checked task
+                }
+            });
+
             titleTextView = (TextView) itemView.findViewById(R.id.TaskTitle);
+            dateTextView = (TextView) itemView.findViewById(R.id.TaskDate);
+
             editButton = (ImageButton) itemView.findViewById(R.id.TaskEditButton);
             //TODO: implementation of the edit button
             editButton.setOnClickListener(new View.OnClickListener() {
