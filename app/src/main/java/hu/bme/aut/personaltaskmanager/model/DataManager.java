@@ -15,8 +15,16 @@ public class DataManager {
 
     private DataManager() {
         projects = new ArrayList<>();
-        projects.add(new Project("proba"));
+
         //loadItemsInBackground();
+        projects = Project.listAll(Project.class);
+        List<Task> tasks = Task.listAll(Task.class);
+        for(Task t: tasks) {
+            for (Project p : projects) {
+                if(t.getProject().equals(p.getTitle()))
+                    p.addTask(t);
+            }
+        }
     }
 
     public static DataManager getInstance() {
@@ -43,7 +51,20 @@ public class DataManager {
         return projects;
     }
     public Project getProject(int position) { return projects.get(position); }
-    public void addProject(Project p){ projects.add(p); }
+    public void addProject(Project p){
+        projects.add(p);
+        p.save();
+    }
+    public void removeProject(Project p){
+        for(Task t: p.getTasks())
+            t.delete();
+
+        p.getTasks().clear();
+
+        p.delete();
+        //projects.remove(p);
+    }
+
 
     //public List<Task> getTasks(int index) { return projects.get(index).getTasks(); }
     public List<Task> getTasks(ITaskFilter filter) {
@@ -56,12 +77,16 @@ public class DataManager {
         }
         return tasks;
     }
-    public void addTask(int index, Task t){ projects.get(index).addTask(t); }
+    public void addTask(int index, Task t){
+        projects.get(index).addTask(t);
+        t.save();
+    }
     public void removeTask(Task task){
         for (Project p: projects) {
             for (Task t: p.getTasks()) {
                 if (t == task){
                     p.removeTask(task);
+                    task.delete();
                     return;
                 }
             }

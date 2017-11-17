@@ -79,7 +79,10 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
                 @Override
                 public void onClick(View view) {
                     boolean checked = isDoneCheckbox.isChecked();
-                    tasks.get(getAdapterPosition()).setDone(checked);
+                    Task t = tasks.get(getAdapterPosition());
+                    t.setDone(checked);
+                    t.save();
+
                     // TODO: notify recycle view, remove checked task
                     //
                     //tasks.remove(getAdapterPosition());
@@ -104,7 +107,6 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
                 public void onClick(View view) {
                     Task t = tasks.remove(getAdapterPosition());
                     DataManager.getInstance().removeTask(t);
-                    //t.delete();
                     notifyItemRemoved(getAdapterPosition());
                 }
             });

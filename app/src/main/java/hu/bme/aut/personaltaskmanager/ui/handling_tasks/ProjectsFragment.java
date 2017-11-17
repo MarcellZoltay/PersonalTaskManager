@@ -59,9 +59,7 @@ public class ProjectsFragment extends Fragment implements NewProjectDialogFragme
 
     @Override
     public void onProjectCreated(Project newProject) {
-        //adapter.addProject(newProject);
         adapter.projectAdded();
         DataManager.getInstance().addProject(newProject);
-        //newProject.save();
     }
 }
