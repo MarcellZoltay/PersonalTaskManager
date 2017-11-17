@@ -82,8 +82,7 @@ public class ProjectRecyclerAdapter extends RecyclerView.Adapter<ProjectRecycler
                 @Override
                 public void onClick(View view) {
                     Project p = projects.remove(getAdapterPosition());
-                    p.clearTasks();
-                    //p.delete();
+                    DataManager.getInstance().removeProject(p);
                     notifyItemRemoved(getAdapterPosition());
                 }
             });
