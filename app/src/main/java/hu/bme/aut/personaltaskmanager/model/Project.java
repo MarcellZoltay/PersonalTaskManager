@@ -25,6 +25,9 @@ public class Project extends SugarRecord {
     public Task removeTask(int i){
         return tasks.remove(i);
     }
+    public boolean removeTask(Task t){
+        return tasks.remove(t);
+    }
 
     public String getTitle() { return title; }
     public void setTitle(String title) {

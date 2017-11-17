@@ -45,7 +45,6 @@ public class ProjectsFragment extends Fragment implements NewProjectDialogFragme
         adapter = new ProjectRecyclerAdapter(new OnProjectSelectedListener() {
             @Override
             public void onProjectSelected(int projectPosition) {
-                // Todo: új TasksOfProjectActivity indítása a kiválaszott project-tel
                 Intent showTasksIntent = new Intent();
                 showTasksIntent.setClass(getContext(), TasksOfProjectActivity.class)
                         .putExtra(getString(R.string.project_name), DataManager.getInstance().getProject(projectPosition).getTitle())

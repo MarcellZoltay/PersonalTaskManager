@@ -2,13 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="hu.bme.aut.personaltaskmanager.ui.handling_tasks.Next7DaysFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <!--
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Next 7 days" />
+        android:text="Next 7 days" />  -->
 
     <android.support.v7.widget.RecyclerView
         xmlns:android="http://schemas.android.com/apk/res/android"

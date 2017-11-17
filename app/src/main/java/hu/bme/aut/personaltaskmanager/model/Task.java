@@ -3,10 +3,10 @@ package hu.bme.aut.personaltaskmanager.model;
 import com.orm.SugarRecord;
 
 public class Task extends SugarRecord {
+
     private String title;
     private String project;
     private long date;
-    private int durationTime;
     private boolean done;
     private boolean overdue;
     private String note;
@@ -26,9 +26,6 @@ public class Task extends SugarRecord {
 
     public long getDate() { return date; }
     public void setDate(long date) { this.date = date; }
-
-    public int getDurationTime() { return durationTime; }
-    public void setDurationTime(int durationTime) { this.durationTime = durationTime; }
 
     public boolean isDone() { return done; }
     public void setDone(boolean done) { this.done = done; }

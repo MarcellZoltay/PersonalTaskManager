@@ -5,6 +5,8 @@ import android.os.AsyncTask;
 import java.util.ArrayList;
 import java.util.List;
 
+import hu.bme.aut.personaltaskmanager.ui.handling_tasks.ITaskFilter;
+
 public class DataManager {
 
     private static DataManager instance = new DataManager();
@@ -43,6 +45,26 @@ public class DataManager {
     public Project getProject(int position) { return projects.get(position); }
     public void addProject(Project p){ projects.add(p); }
 
-    public List<Task> getTasks(int index) { return projects.get(index).getTasks(); }
+    //public List<Task> getTasks(int index) { return projects.get(index).getTasks(); }
+    public List<Task> getTasks(ITaskFilter filter) {
+        List<Task> tasks = new ArrayList<>();
+        for (Project p: projects) {
+            for (Task t: p.getTasks()) {
+                if(filter.Filter(t))
+                    tasks.add(t);
+            }
+        }
+        return tasks;
+    }
     public void addTask(int index, Task t){ projects.get(index).addTask(t); }
+    public void removeTask(Task task){
+        for (Project p: projects) {
+            for (Task t: p.getTasks()) {
+                if (t == task){
+                    p.removeTask(task);
+                    return;
+                }
+            }
+        }
+    }
 }

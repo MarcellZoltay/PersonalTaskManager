@@ -15,13 +15,16 @@ import java.util.Calendar;
 import java.util.List;
 
 import hu.bme.aut.personaltaskmanager.R;
+import hu.bme.aut.personaltaskmanager.ui.handling_tasks.ITaskFilter;
 
 public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapter.TaskViewHolder> {
 
     private List<Task> tasks;
+    private ITaskFilter filter;
 
-    public TaskRecyclerAdapter(int projectPosition){
-        tasks = DataManager.getInstance().getTasks(projectPosition);
+    public TaskRecyclerAdapter(ITaskFilter filter){
+        this.filter = filter;
+        tasks = DataManager.getInstance().getTasks(filter);
     }
 
     @Override
@@ -39,6 +42,16 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
         holder.isDoneCheckbox.setChecked(task.isDone());
     }
 
+    @Override
+    public int getItemCount() {
+        return tasks.size();
+    }
+
+    public void update(){
+        tasks = DataManager.getInstance().getTasks(filter);
+        notifyDataSetChanged();
+    }
+
     private String getFormattedDate(long date, String dateFormat)
     {
         DateFormat formatter = new SimpleDateFormat(dateFormat);
@@ -47,36 +60,6 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
         c.setTimeInMillis(date);
         return formatter.format(c.getTime());
     }
-
-    //@Override
-    //public void onBindViewHolder(final TaskViewHolder holder, int position) {
-    //      Task task = items.get(position);
-          //holder.nameTextView.setText(item.name);
-          //holder.descriptionTextView.setText(item.description);
-          //holder.categoryTextView.setText(item.category.name());
-          //holder.priceTextView.setText(item.estimatedPrice + " Ft");
-          //holder.iconImageView.setImageResource(getImageResource(item.category));
-          //holder.isBoughtCheckBox.setChecked(item.isBought);
-    //
-          //holder.isBoughtCheckBox.setOnClickListener(new View.OnClickListener() {
-          //   @Override
-          //   public void onClick(View view) {
-          //      boolean checked = holder.isBoughtCheckBox.isChecked();
-          //      Log.d(TAG, "onClick: checked = " + checked + " in position "
-          //              + holder.getAdapterPosition());
-          //      ShoppingItem item = items.get(holder.getAdapterPosition());
-          //      item.isBought = checked;
-          //      item.save();
-          //   }
-          //});
-    //}
-
-    @Override
-    public int getItemCount() {
-        return tasks.size();
-    }
-
-    public void newTaskAdded(){ notifyDataSetChanged(); }
 
     public class TaskViewHolder extends RecyclerView.ViewHolder{
 
@@ -92,15 +75,15 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
 
             //iconImageView = (ImageView) itemView.findViewById(R.id.TaskFolderIconImageView);
             isDoneCheckbox = (CheckBox) itemView.findViewById(R.id.TaskDoneCheckBox);
-            // TODO: implement checkbox click
             isDoneCheckbox.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     boolean checked = isDoneCheckbox.isChecked();
-                    //      Log.d(TAG, "onClick: checked = " + checked + " in position "
-                    //              + holder.getAdapterPosition());
                     tasks.get(getAdapterPosition()).setDone(checked);
                     // TODO: notify recycle view, remove checked task
+                    //
+                    //tasks.remove(getAdapterPosition());
+                    //notifyItemRemoved(getAdapterPosition());
                 }
             });
 
@@ -120,6 +103,7 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
                 @Override
                 public void onClick(View view) {
                     Task t = tasks.remove(getAdapterPosition());
+                    DataManager.getInstance().removeTask(t);
                     //t.delete();
                     notifyItemRemoved(getAdapterPosition());
                 }

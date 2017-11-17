@@ -43,13 +43,18 @@ public class TasksOfProjectActivity extends AppCompatActivity implements NewTask
 
         recyclerView = (RecyclerView) findViewById(R.id.TasksOfProjectRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new TaskRecyclerAdapter(projectPosition);
+        adapter = new TaskRecyclerAdapter(new ITaskFilter() {
+            @Override
+            public boolean Filter(Task t) {
+                return t.getProject().equals(DataManager.getInstance().getProject(projectPosition).getTitle());
+            }
+        });
         recyclerView.setAdapter(adapter);
     }
 
     @Override
     public void onTaskCreated(Task newTask) {
         DataManager.getInstance().addTask(projectPosition, newTask);
-        adapter.newTaskAdded();
+        adapter.update();
     }
 }
