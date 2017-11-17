@@ -43,14 +43,12 @@ public class ProjectRecyclerAdapter extends RecyclerView.Adapter<ProjectRecycler
     }
 
     //TODO: other list for projects in this class or just send notification
-    public void addProject(Project p) {
-        projects.add(p);
-        notifyItemInserted(projects.size() - 1);
-    }
+    //public void addProject(Project p) {
+    //    projects.add(p);
+    //    notifyItemInserted(projects.size() - 1);
+    //}
 
-    public void projectAdded(){
-        notifyDataSetChanged();
-    }
+    public void projectAdded(){ notifyDataSetChanged(); }
 
     //public void update(List<Project> shoppingItems) {
     //    projects.clear();

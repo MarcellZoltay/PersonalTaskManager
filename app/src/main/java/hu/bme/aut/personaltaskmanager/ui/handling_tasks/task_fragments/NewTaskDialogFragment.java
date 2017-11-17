@@ -84,6 +84,7 @@ public class NewTaskDialogFragment extends DialogFragment
                     private Task getTask() {
                         Task t = new Task();
                         t.setTitle(titleEditText.getText().toString());
+                        t.setProject(getArguments().getString(getString(R.string.project_name)));
                         t.setDate(new GregorianCalendar(year, month, day, hour, minute).getTimeInMillis());
                         t.setNote(noteEditText.getText().toString());
                         return t;
