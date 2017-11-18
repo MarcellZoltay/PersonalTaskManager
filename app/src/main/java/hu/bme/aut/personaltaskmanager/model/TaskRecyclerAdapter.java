@@ -1,5 +1,7 @@
 package hu.bme.aut.personaltaskmanager.model;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,7 +72,7 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
         ImageButton editButton;
         ImageButton removeButton;
 
-        public TaskViewHolder(View itemView) {
+        public TaskViewHolder(final View itemView) {
             super(itemView);
 
             //iconImageView = (ImageView) itemView.findViewById(R.id.TaskFolderIconImageView);
@@ -105,9 +107,25 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
             removeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Task t = tasks.remove(getAdapterPosition());
-                    DataManager.getInstance().removeTask(t);
-                    notifyItemRemoved(getAdapterPosition());
+                    AlertDialog.Builder adb = new AlertDialog.Builder(itemView.getContext());
+                    adb.setMessage(R.string.delete_task_alert_msg);
+                    adb.setTitle("Delete " + tasks.get(getAdapterPosition()).getTitle() + " Task");
+                    adb.setIcon(android.R.drawable.ic_dialog_alert);
+                    adb.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Task t = tasks.remove(getAdapterPosition());
+                            DataManager.getInstance().removeTask(t);
+                            notifyItemRemoved(getAdapterPosition());
+                        }
+                    });
+                    adb.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            return;
+                        }
+                    });
+                    adb.show();
                 }
             });
         }
