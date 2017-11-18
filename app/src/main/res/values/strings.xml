@@ -9,7 +9,6 @@
     <string name="completed_tasks">Completed</string>
     <string name="overdue_tasks">Overdue</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="new_project">New Project</string>
     <string name="title">Title</string>
 
@@ -23,6 +22,9 @@
 
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
+    <string name="delete_task_alert_msg">Are you sure you want to delete task?</string>
+    <string name="delete_project_alert_msg">Are you sure you want to delete project? All your tasks in this project will be deleted too.</string>
+
     <string name="bundle_date_parts">BUNDLE DATE PARTS</string>
     <string name="bundle_time_parts">BUNDLE_TIME_PARTS</string>
     <string name="new_task_error_toast_msg">Missing title or date</string>
