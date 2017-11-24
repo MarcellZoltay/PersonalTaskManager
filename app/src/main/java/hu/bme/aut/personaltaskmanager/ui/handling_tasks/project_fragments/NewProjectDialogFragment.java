@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import hu.bme.aut.personaltaskmanager.R;
+import hu.bme.aut.personaltaskmanager.model.DataManager;
 import hu.bme.aut.personaltaskmanager.model.Project;
 
 public class NewProjectDialogFragment extends DialogFragment {
@@ -22,10 +23,14 @@ public class NewProjectDialogFragment extends DialogFragment {
 
     public interface INewProjectDialogListener {
         void onProjectCreated(Project newProject);
+        void onProjectEdited(Project editedProject);
     }
     private INewProjectDialogListener listener;
 
     private EditText titleEditText;
+
+    private boolean isEdit;
+    private Project project;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,19 +41,40 @@ public class NewProjectDialogFragment extends DialogFragment {
         } else {
             throw new RuntimeException("Fragment/Activity must implement the INewProjectDialogListener interface!");
         }
+
+        Bundle b = getArguments();
+        int projectIndex = -1;
+        if(b != null)
+            projectIndex = b.getInt(getString(R.string.project_position));
+        if(projectIndex != -1) {
+            isEdit = true;
+            project = DataManager.getInstance().getProject(projectIndex);
+        }
+        else
+            project = new Project();
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return new AlertDialog.Builder(getContext())
-                .setTitle(R.string.new_project)
-                .setView(getContentView())
+        AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
+        if(!isEdit)
+            dialog.setTitle(R.string.new_project);
+        else {
+            dialog.setTitle(R.string.edit_project);
+        }
+
+        dialog.setView(getContentView())
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if (isValid()) {
-                            listener.onProjectCreated(getProject());
+                            setProject();
+                            if(!isEdit)
+                                listener.onProjectCreated(project);
+                            else {
+                                listener.onProjectEdited(project);
+                            }
                         }
                     }
 
@@ -62,19 +88,22 @@ public class NewProjectDialogFragment extends DialogFragment {
                         return res;
                     }
 
-                    private Project getProject() {
-                        Project p = new Project();
-                        p.setTitle(titleEditText.getText().toString());
-                        return p;
+                    private void setProject() {
+                        project.setTitle(titleEditText.getText().toString());
                     }
                 })
-                .setNegativeButton(R.string.cancel, null)
-                .create();
+                .setNegativeButton(R.string.cancel, null);
+        return dialog.create();
     }
 
     private View getContentView() {
         View contentView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_new_project, null);
         titleEditText = (EditText) contentView.findViewById(R.id.ProjectTitleEditText);
+        if(isEdit) {
+            titleEditText.setText(project.getTitle());
+            titleEditText.setSelection(titleEditText.getText().length());
+            titleEditText.setSelectAllOnFocus(true);
+        }
         return contentView;
     }
 

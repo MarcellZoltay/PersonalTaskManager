@@ -36,13 +36,13 @@ public class ProjectsFragment extends Fragment implements NewProjectDialogFragme
            public void onClick(View view) {
                NewProjectDialogFragment dialog = new NewProjectDialogFragment();
                dialog.setTargetFragment(frag, ADD_PROJECT_REQUEST_CODE);
-               dialog.show(getFragmentManager(), NewProjectDialogFragment.TAG);
+               dialog.show(frag.getFragmentManager(), NewProjectDialogFragment.TAG);
             }
        });
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.ProjectRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new ProjectRecyclerAdapter(new OnProjectSelectedListener() {
+        adapter = new ProjectRecyclerAdapter(frag, new OnProjectSelectedListener() {
             @Override
             public void onProjectSelected(int projectPosition) {
                 Intent showTasksIntent = new Intent();
@@ -59,7 +59,13 @@ public class ProjectsFragment extends Fragment implements NewProjectDialogFragme
 
     @Override
     public void onProjectCreated(Project newProject) {
-        adapter.projectAdded();
         DataManager.getInstance().addProject(newProject);
+        adapter.update();
+    }
+
+    @Override
+    public void onProjectEdited(Project editedProject) {
+        DataManager.getInstance().editProject(editedProject);
+        adapter.update();
     }
 }

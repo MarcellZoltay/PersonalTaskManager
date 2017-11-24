@@ -10,6 +10,7 @@
     <string name="overdue_tasks">Overdue</string>
 
     <string name="new_project">New Project</string>
+    <string name="edit_project">Edit Project</string>
     <string name="title">Title</string>
 
     <string name="project_name">Project Name</string>
@@ -29,5 +30,6 @@
     <string name="bundle_time_parts">BUNDLE_TIME_PARTS</string>
     <string name="new_task_error_toast_msg">Missing title or date</string>
     <string name="new_project_error_toast_msg">Missing title</string>
+
 
 </resources>
