@@ -2,6 +2,8 @@ package hu.bme.aut.personaltaskmanager.model;
 
 
 import android.content.DialogInterface;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,6 +17,7 @@ import java.util.List;
 
 import hu.bme.aut.personaltaskmanager.R;
 import hu.bme.aut.personaltaskmanager.ui.handling_tasks.OnProjectSelectedListener;
+import hu.bme.aut.personaltaskmanager.ui.handling_tasks.project_fragments.NewProjectDialogFragment;
 
 public class ProjectRecyclerAdapter extends RecyclerView.Adapter<ProjectRecyclerAdapter.ProjectViewHolder>{
 
@@ -22,9 +25,11 @@ public class ProjectRecyclerAdapter extends RecyclerView.Adapter<ProjectRecycler
 
     private List<Project> projects;
     private OnProjectSelectedListener listener;
+    private Fragment parentFragment;
 
-    public ProjectRecyclerAdapter(OnProjectSelectedListener listener){
+    public ProjectRecyclerAdapter(Fragment frag, OnProjectSelectedListener listener){
         projects = DataManager.getInstance().getProjects();
+        this.parentFragment = frag;
         this.listener = listener;
     }
 
@@ -46,19 +51,8 @@ public class ProjectRecyclerAdapter extends RecyclerView.Adapter<ProjectRecycler
         return projects.size();
     }
 
-    //TODO: other list for projects in this class or just send notification
-    //public void addProject(Project p) {
-    //    projects.add(p);
-    //    notifyItemInserted(projects.size() - 1);
-    //}
 
-    public void projectAdded(){ notifyDataSetChanged(); }
-
-    //public void update(List<Project> shoppingItems) {
-    //    projects.clear();
-    //    projects.addAll(shoppingItems);
-    //    notifyDataSetChanged();
-    //}
+    public void update(){ notifyDataSetChanged(); }
 
 
     public class ProjectViewHolder extends RecyclerView.ViewHolder{
@@ -74,13 +68,15 @@ public class ProjectRecyclerAdapter extends RecyclerView.Adapter<ProjectRecycler
             iconImageView = (ImageView) itemView.findViewById(R.id.ProjectFolderIconImageView);
             titleTextView = (TextView) itemView.findViewById(R.id.ProjectTitle);
             editButton = (ImageButton) itemView.findViewById(R.id.ProjectEditButton);
-            //TODO: implementation of the edit button
             editButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //NewProjectDialogFragment dialog = new NewProjectDialogFragment();
-                    //dialog.setTargetFragment(frag, EDIT_PROJECT_REQUEST_CODE);
-                    //dialog.show(getFragmentManager(), NewProjectDialogFragment.TAG);
+                    Bundle b = new Bundle();
+                    b.putInt(itemView.getContext().getString(R.string.project_position), getAdapterPosition());
+                    NewProjectDialogFragment dialog = new NewProjectDialogFragment();
+                    dialog.setTargetFragment(parentFragment, EDIT_PROJECT_REQUEST_CODE);
+                    dialog.setArguments(b);
+                    dialog.show(parentFragment.getFragmentManager(), NewProjectDialogFragment.TAG);
                 }
             });
             removeButton = (ImageButton) itemView.findViewById(R.id.ProjectRemoveButton);

@@ -1,6 +1,7 @@
 package hu.bme.aut.personaltaskmanager.model;
 
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -100,7 +101,8 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
             editButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    Task t = tasks.get(getAdapterPosition());
+                    Bundle b = new Bundle();
                 }
             });
             removeButton = (ImageButton) itemView.findViewById(R.id.TaskRemoveButton);

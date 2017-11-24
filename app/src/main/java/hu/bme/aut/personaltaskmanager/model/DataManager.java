@@ -62,7 +62,9 @@ public class DataManager {
         p.getTasks().clear();
 
         p.delete();
-        //projects.remove(p);
+    }
+    public void editProject(Project p){
+        p.save();
     }
 
 
