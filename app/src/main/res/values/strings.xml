@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PersonalTaskManager</string>
+    <string name="app_name">Personal Task Manager</string>
     <string name="tasks">Tasks</string>
     <string name="statistic">Statistic</string>
 
@@ -9,27 +9,35 @@
     <string name="completed_tasks">Completed</string>
     <string name="overdue_tasks">Overdue</string>
 
+    <!-- PROJECT -->
     <string name="new_project">New Project</string>
     <string name="edit_project">Edit Project</string>
-    <string name="title">Title</string>
-
+    <string name="delete_project">Delete Project</string>
     <string name="project_name">Project Name</string>
     <string name="project_position">Project position</string>
+    <string name="delete_project_alert_msg">Are you sure you want to delete project? All your tasks in this project will be deleted too.</string>
+    <string name="new_project_error_toast_msg">Missing title</string>
+    <string name="choose_an_action">Choose an action</string>
 
+
+    <!-- TASK -->
     <string name="new_task">New Task in </string>
+    <string name="edit_task">Edit Task</string>
+    <string name="delete_task">Delete Task</string>
+    <string name="edit_task_in">Edit Task in</string>
     <string name="date">Date</string>
     <string name="duration_time">Duration</string>
     <string name="note">Note</string>
-
-    <string name="ok">OK</string>
-    <string name="cancel">Cancel</string>
     <string name="delete_task_alert_msg">Are you sure you want to delete task?</string>
-    <string name="delete_project_alert_msg">Are you sure you want to delete project? All your tasks in this project will be deleted too.</string>
-
     <string name="bundle_date_parts">BUNDLE DATE PARTS</string>
     <string name="bundle_time_parts">BUNDLE_TIME_PARTS</string>
     <string name="new_task_error_toast_msg">Missing title or date</string>
-    <string name="new_project_error_toast_msg">Missing title</string>
+    <string name="task_position">Task position</string>
 
+    <!-- BOTH -->
+    <string name="title">Title</string>
+
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
 
 </resources>

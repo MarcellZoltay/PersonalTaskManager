@@ -15,20 +15,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import hu.bme.aut.personaltaskmanager.R;
+import hu.bme.aut.personaltaskmanager.model.DataManager;
 import hu.bme.aut.personaltaskmanager.model.Task;
+import hu.bme.aut.personaltaskmanager.ui.handling_tasks.DateFormatHelper;
 import hu.bme.aut.personaltaskmanager.ui.handling_tasks.DatePickerDialogFragment;
 import hu.bme.aut.personaltaskmanager.ui.handling_tasks.TimePickerDialogFragment;
 
 public class NewTaskDialogFragment extends DialogFragment
         implements DatePickerDialogFragment.OnDateSelectedListener, TimePickerDialogFragment.OnTimeSelectedListener {
 
-    public static final String TAG = "NewTaskDialogFragment";
+    public static final String TAG = "TaskDialogFragment";
     public static final int ADD_DATE_REQUEST_CODE = 120;
     public static final int ADD_TIME_REQUEST_CODE = 121;
 
@@ -36,7 +37,11 @@ public class NewTaskDialogFragment extends DialogFragment
     public interface INewTaskDialogListener {
         void onTaskCreated(Task newTask);
     }
-    private INewTaskDialogListener listener;
+    public interface IEditTaskDialogListener{
+        void onTaskEdited(Task editedTask);
+    }
+    private INewTaskDialogListener newTaskListener;
+    private IEditTaskDialogListener editTaskListener;
 
     private EditText titleEditText;
     private Button dateButton;
@@ -46,28 +51,54 @@ public class NewTaskDialogFragment extends DialogFragment
 
     private final Fragment fragment = this;
 
+    private boolean isEdit;
+    private Task task;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FragmentActivity activity = getActivity();
         if (activity instanceof INewTaskDialogListener) {
-            listener = (INewTaskDialogListener) activity;
+            newTaskListener = (INewTaskDialogListener) activity;
+        } else if (activity instanceof IEditTaskDialogListener) {
+            editTaskListener = (IEditTaskDialogListener) activity;
         } else {
             throw new RuntimeException("Fragment/Activity must implement the INewProjectDialogListener interface!");
         }
+
+        Bundle b = getArguments();
+        int projectIndex = -1, taskIndex = -1;
+        if(b != null){
+            projectIndex = b.getInt(getString(R.string.project_position), -1);
+            taskIndex = b.getInt(getString(R.string.task_position), -1);
+        }
+        if(taskIndex != -1 && projectIndex != -1){
+            isEdit = true;
+            task = DataManager.getInstance().getProject(projectIndex).getTasks().get(taskIndex);
+        }
+        else
+            task = new Task();
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return new AlertDialog.Builder(getContext())
-                .setTitle(getString(R.string.new_task) + " " + getArguments().getString(getString(R.string.project_name)))
-                .setView(getContentView())
+        AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
+        if(!isEdit)
+            dialog.setTitle(getString(R.string.new_task) + " " + getArguments().getString(getString(R.string.project_name)));
+        else
+            dialog.setTitle(getString(R.string.edit_task_in) + " " + getArguments().getString(getString(R.string.project_name)));
+
+        dialog.setView(getContentView())
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if (isValid()) {
-                            listener.onTaskCreated(getTask());
+                            setTask();
+                            if(!isEdit)
+                                newTaskListener.onTaskCreated(task);
+                            else
+                                editTaskListener.onTaskEdited(task);
                         }
                     }
 
@@ -80,18 +111,16 @@ public class NewTaskDialogFragment extends DialogFragment
 
                         return res;
                     }
-
-                    private Task getTask() {
-                        Task t = new Task();
-                        t.setTitle(titleEditText.getText().toString());
-                        t.setProject(getArguments().getString(getString(R.string.project_name)));
-                        t.setDate(new GregorianCalendar(year, month, day, hour, minute).getTimeInMillis());
-                        t.setNote(noteEditText.getText().toString());
-                        return t;
+                    private void setTask() {
+                        task.setTitle(titleEditText.getText().toString().trim());
+                        task.setProject(getArguments().getString(getString(R.string.project_name)));
+                        task.setDate(new GregorianCalendar(year, month, day, hour, minute).getTimeInMillis());
+                        task.setOverdue(false);
+                        task.setNote(noteEditText.getText().toString().trim());
                     }
                 })
-                .setNegativeButton(R.string.cancel, null)
-                .create();
+                .setNegativeButton(R.string.cancel, null);
+         return dialog.create();
     }
 
     private View getContentView() {
@@ -128,6 +157,21 @@ public class NewTaskDialogFragment extends DialogFragment
             }
         });
         noteEditText = (EditText) contentView.findViewById(R.id.TaskNoteEditText);
+        if(isEdit){
+            titleEditText.setText(task.getTitle());
+            titleEditText.setSelection(titleEditText.getText().length());
+            dateButton.setText(DateFormatHelper.getFormattedDate(task.getDate(), "yyyy.MM.dd."));
+            Date date = new Date(task.getDate());
+            Calendar c = Calendar.getInstance();
+            c.setTime(date);
+            year = c.get(Calendar.YEAR);
+            month = c.get(Calendar.MONTH);
+            day = c.get(Calendar.DAY_OF_MONTH);
+            timeButton.setText(DateFormatHelper.getFormattedDate(task.getDate(), "HH:mm"));
+            hour = c.get(Calendar.HOUR_OF_DAY);
+            minute = c.get(Calendar.MINUTE);
+            noteEditText.setText(task.getNote());
+        }
         return contentView;
     }
 
@@ -138,7 +182,7 @@ public class NewTaskDialogFragment extends DialogFragment
         Calendar c = Calendar.getInstance();
         c.set(year, month, day);
         long date = c.getTimeInMillis();
-        dateButton.setText(getFormattedDate(date, "yyyy.MM.dd"));
+        dateButton.setText(DateFormatHelper.getFormattedDate(date, "yyyy.MM.dd."));
     }
 
     @Override
@@ -148,15 +192,6 @@ public class NewTaskDialogFragment extends DialogFragment
         Calendar c = Calendar.getInstance();
         c.set(year, month, day, hour, minute);
         long date = c.getTimeInMillis();
-        timeButton.setText(getFormattedDate(date, "HH:mm"));
-    }
-
-    private String getFormattedDate(long date, String dateFormat)
-    {
-        DateFormat formatter = new SimpleDateFormat(dateFormat);
-
-        Calendar c = Calendar.getInstance();
-        c.setTimeInMillis(date);
-        return formatter.format(c.getTime());
+        timeButton.setText(DateFormatHelper.getFormattedDate(date, "HH:mm"));
     }
 }
