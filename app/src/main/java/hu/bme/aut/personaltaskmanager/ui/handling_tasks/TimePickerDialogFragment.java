@@ -34,7 +34,7 @@ public class TimePickerDialogFragment extends DialogFragment implements TimePick
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        if(hour == 0) {
+        if(hour == -1) {
             Calendar c = Calendar.getInstance();
             hour = c.get(Calendar.HOUR_OF_DAY);
             minute = c.get(Calendar.MINUTE);

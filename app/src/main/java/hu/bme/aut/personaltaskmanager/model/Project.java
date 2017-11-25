@@ -20,8 +20,6 @@ public class Project extends SugarRecord {
         tasks.add(t);
     }
 
-    //TODO: modify task
-
     public Task removeTask(int i){
         return tasks.remove(i);
     }
