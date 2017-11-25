@@ -47,7 +47,7 @@ public class NewTaskDialogFragment extends DialogFragment
     private Button dateButton;
     private Button timeButton;
     private EditText noteEditText;
-    private int year, month, day, hour, minute;
+    private int year, month, day, hour = -1, minute;
 
     private final Fragment fragment = this;
 
@@ -75,6 +75,15 @@ public class NewTaskDialogFragment extends DialogFragment
         if(taskIndex != -1 && projectIndex != -1){
             isEdit = true;
             task = DataManager.getInstance().getProject(projectIndex).getTasks().get(taskIndex);
+
+            Date date = new Date(task.getDate());
+            Calendar c = Calendar.getInstance();
+            c.setTime(date);
+            year = c.get(Calendar.YEAR);
+            month = c.get(Calendar.MONTH);
+            day = c.get(Calendar.DAY_OF_MONTH);
+            hour = c.get(Calendar.HOUR_OF_DAY);
+            minute = c.get(Calendar.MINUTE);
         }
         else
             task = new Task();
@@ -104,7 +113,7 @@ public class NewTaskDialogFragment extends DialogFragment
 
                     private boolean isValid() {
                         boolean res = true;
-                        if(!(titleEditText.getText().length() > 0 && year != 0 && hour != 0)){
+                        if(!(titleEditText.getText().length() > 0 && year != 0 && hour != -1)){
                             res = false;
                             Toast.makeText(fragment.getContext(), R.string.new_task_error_toast_msg, Toast.LENGTH_SHORT).show();
                         }
@@ -161,15 +170,7 @@ public class NewTaskDialogFragment extends DialogFragment
             titleEditText.setText(task.getTitle());
             titleEditText.setSelection(titleEditText.getText().length());
             dateButton.setText(DateFormatHelper.getFormattedDate(task.getDate(), "yyyy.MM.dd."));
-            Date date = new Date(task.getDate());
-            Calendar c = Calendar.getInstance();
-            c.setTime(date);
-            year = c.get(Calendar.YEAR);
-            month = c.get(Calendar.MONTH);
-            day = c.get(Calendar.DAY_OF_MONTH);
             timeButton.setText(DateFormatHelper.getFormattedDate(task.getDate(), "HH:mm"));
-            hour = c.get(Calendar.HOUR_OF_DAY);
-            minute = c.get(Calendar.MINUTE);
             noteEditText.setText(task.getNote());
         }
         return contentView;
