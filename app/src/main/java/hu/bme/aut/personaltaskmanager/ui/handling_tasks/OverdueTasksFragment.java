@@ -31,12 +31,18 @@ public class OverdueTasksFragment extends Fragment {
         adapter = new TaskRecyclerAdapter(new ITaskFilter() {
             @Override
             public boolean Filter(Task t) {
+                if(t.isDone())
+                    return false;
+
+                if(t.isOverdue())
+                    return true;
+
                 Calendar c = Calendar.getInstance();
-                int today = c.get(Calendar.DAY_OF_MONTH);
+                long today = c.getTimeInMillis();
 
                 Date d = new Date(t.getDate());
                 c.setTime(d);
-                int myDate = c.get(Calendar.DAY_OF_MONTH);
+                long myDate = c.getTimeInMillis();
 
                 if(myDate < today)
                     t.setOverdue(true);

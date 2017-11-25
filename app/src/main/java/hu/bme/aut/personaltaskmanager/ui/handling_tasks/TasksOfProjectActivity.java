@@ -1,5 +1,6 @@
 package hu.bme.aut.personaltaskmanager.ui.handling_tasks;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
@@ -15,8 +16,6 @@ import hu.bme.aut.personaltaskmanager.model.TaskRecyclerAdapter;
 import hu.bme.aut.personaltaskmanager.ui.handling_tasks.task_fragments.NewTaskDialogFragment;
 
 public class TasksOfProjectActivity extends AppCompatActivity implements NewTaskDialogFragment.INewTaskDialogListener {
-
-    public static final int ADD_PROJECT_REQUEST_CODE = 101;
 
     private RecyclerView recyclerView;
     private TaskRecyclerAdapter adapter;
@@ -48,8 +47,23 @@ public class TasksOfProjectActivity extends AppCompatActivity implements NewTask
             public boolean Filter(Task t) {
                 return t.getProject().equals(DataManager.getInstance().getProject(projectPosition).getTitle());
             }
+        }, new OnTaskSelectedListener() {
+            @Override
+            public void onTaskSelected(int taskPosition) {
+                Intent showDetails = new Intent();
+                showDetails.setClass(TasksOfProjectActivity.this, TaskDetailsActivity.class)
+                        .putExtra(getString(R.string.project_position), projectPosition)
+                        .putExtra(getString(R.string.task_position), taskPosition);
+                startActivity(showDetails);
+            }
         });
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapter.update();
     }
 
     @Override

@@ -68,7 +68,6 @@ public class DataManager {
     }
 
 
-    //public List<Task> getTasks(int index) { return projects.get(index).getTasks(); }
     public List<Task> getTasks(ITaskFilter filter) {
         List<Task> tasks = new ArrayList<>();
         for (Project p: projects) {
@@ -83,15 +82,11 @@ public class DataManager {
         projects.get(index).addTask(t);
         t.save();
     }
-    public void removeTask(Task task){
-        for (Project p: projects) {
-            for (Task t: p.getTasks()) {
-                if (t == task){
-                    p.removeTask(task);
-                    task.delete();
-                    return;
-                }
-            }
-        }
+    public void removeTask(int projectIndex, Task task){
+        projects.get(projectIndex).removeTask(task);
+        task.delete();
+    }
+    public void editTask(Task t){
+        t.save();
     }
 }

@@ -19,7 +19,7 @@ import hu.bme.aut.personaltaskmanager.model.Project;
 
 public class NewProjectDialogFragment extends DialogFragment {
 
-    public static final String TAG = "NewProjectDialogFragment";
+    public static final String TAG = "ProjectDialogFragment";
 
     public interface INewProjectDialogListener {
         void onProjectCreated(Project newProject);
@@ -60,9 +60,8 @@ public class NewProjectDialogFragment extends DialogFragment {
         AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
         if(!isEdit)
             dialog.setTitle(R.string.new_project);
-        else {
+        else
             dialog.setTitle(R.string.edit_project);
-        }
 
         dialog.setView(getContentView())
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
@@ -89,7 +88,7 @@ public class NewProjectDialogFragment extends DialogFragment {
                     }
 
                     private void setProject() {
-                        project.setTitle(titleEditText.getText().toString());
+                        project.setTitle(titleEditText.getText().toString().trim());
                     }
                 })
                 .setNegativeButton(R.string.cancel, null);
@@ -102,7 +101,6 @@ public class NewProjectDialogFragment extends DialogFragment {
         if(isEdit) {
             titleEditText.setText(project.getTitle());
             titleEditText.setSelection(titleEditText.getText().length());
-            titleEditText.setSelectAllOnFocus(true);
         }
         return contentView;
     }
