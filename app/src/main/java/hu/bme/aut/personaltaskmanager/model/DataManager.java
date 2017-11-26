@@ -4,10 +4,12 @@ import android.os.AsyncTask;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import hu.bme.aut.personaltaskmanager.ui.handling_tasks.ITaskFilter;
+
+import static hu.bme.aut.personaltaskmanager.model.DataManager.StatisticType.Monthly;
+import static hu.bme.aut.personaltaskmanager.model.DataManager.StatisticType.Weekly;
 
 public class DataManager {
 
@@ -96,24 +98,32 @@ public class DataManager {
 
 
     // STATISTIC
-    public List<StatisticItem> getStatistic(long firstDay, long lastDay){
+    public List<StatisticItem> getStatistic(StatisticType type, long firstDay, long lastDay){
         List<StatisticItem> items = new ArrayList<>();
-        for(int i=0; i<7;i++)
+        if(type == Weekly)
+            for(int i=0; i<7;i++)
+                items.add(new StatisticItem());
+        else if(type == Monthly)
             items.add(new StatisticItem());
 
         Calendar c = Calendar.getInstance();
         long now = c.getTimeInMillis();
-        c.setTimeInMillis(firstDay);
-        Calendar first = new GregorianCalendar(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
-        c.setTimeInMillis(lastDay);
-        Calendar last = new GregorianCalendar(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), 23, 59, 59);
+        //c.setTimeInMillis(firstDay);
+        //Calendar first = new GregorianCalendar(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
+        //c.setTimeInMillis(lastDay);
+        //Calendar last = new GregorianCalendar(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), 23, 59, 59);
+
+        StatisticItem s = items.get(0);
         for(Project p: projects)
             for(Task t: p.getTasks()){
-                if(first.getTimeInMillis() <= t.getDate() && t.getDate() <= last.getTimeInMillis()){
-                    c.setTimeInMillis(t.getDate());
-                    int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
-                    if(dayOfWeek == 1) dayOfWeek = 8;
-                    StatisticItem s = items.get(dayOfWeek-2);
+                if(firstDay <= t.getDate() && t.getDate() <= lastDay){
+                    if(type == Weekly) {
+                        c.setTimeInMillis(t.getDate());
+                        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+                        if (dayOfWeek == 1) dayOfWeek = 8;
+                        s = items.get(dayOfWeek - 2);
+                    }
+
                     s.incrementAll();
 
                     if(t.isDone()) s.incrementDone();
@@ -126,5 +136,9 @@ public class DataManager {
             }
 
         return items;
+    }
+
+    public enum StatisticType{
+        Weekly, Monthly
     }
 }

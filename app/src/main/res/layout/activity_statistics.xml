@@ -40,7 +40,7 @@
             android:minHeight="400dp"
             android:layout_height="wrap_content"/>
 
-            <!--
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -64,12 +64,12 @@
                 android:text="Next" />
         </LinearLayout>
 
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/lcMonthly"
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/bcMonthly"
             android:layout_width="match_parent"
             android:minHeight="400dp"
             android:layout_height="wrap_content"/>
-        -->
+
 
     </LinearLayout>
 
