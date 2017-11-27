@@ -1,4 +1,4 @@
-package hu.bme.aut.personaltaskmanager.ui.handling_tasks;
+package hu.bme.aut.personaltaskmanager.ui.handling_tasks.pages_of_viewpager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,10 +14,13 @@ import android.view.ViewGroup;
 import hu.bme.aut.personaltaskmanager.R;
 import hu.bme.aut.personaltaskmanager.model.DataManager;
 import hu.bme.aut.personaltaskmanager.model.Project;
-import hu.bme.aut.personaltaskmanager.model.ProjectRecyclerAdapter;
-import hu.bme.aut.personaltaskmanager.ui.handling_tasks.project_fragments.NewProjectDialogFragment;
+import hu.bme.aut.personaltaskmanager.ui.handling_tasks.IUpdatablePageFragment;
+import hu.bme.aut.personaltaskmanager.ui.handling_tasks.ProjectRecyclerAdapter;
+import hu.bme.aut.personaltaskmanager.ui.handling_tasks.OnProjectSelectedListener;
+import hu.bme.aut.personaltaskmanager.ui.handling_tasks.TasksOfProjectActivity;
+import hu.bme.aut.personaltaskmanager.ui.handling_tasks.project_fragments.ProjectDialogFragment;
 
-public class ProjectsFragment extends Fragment implements NewProjectDialogFragment.INewProjectDialogListener {
+public class ProjectsFragment extends Fragment implements ProjectDialogFragment.INewProjectDialogListener, IUpdatablePageFragment {
 
     public static final int ADD_PROJECT_REQUEST_CODE = 100;
 
@@ -34,9 +37,9 @@ public class ProjectsFragment extends Fragment implements NewProjectDialogFragme
         fab.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
-               NewProjectDialogFragment dialog = new NewProjectDialogFragment();
+               ProjectDialogFragment dialog = new ProjectDialogFragment();
                dialog.setTargetFragment(frag, ADD_PROJECT_REQUEST_CODE);
-               dialog.show(frag.getFragmentManager(), NewProjectDialogFragment.TAG);
+               dialog.show(frag.getFragmentManager(), ProjectDialogFragment.TAG);
             }
        });
 
@@ -66,6 +69,11 @@ public class ProjectsFragment extends Fragment implements NewProjectDialogFragme
     @Override
     public void onProjectEdited(Project editedProject) {
         DataManager.getInstance().editProject(editedProject);
+        adapter.update();
+    }
+
+    @Override
+    public void updatePage() {
         adapter.update();
     }
 }

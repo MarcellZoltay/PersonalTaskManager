@@ -1,4 +1,4 @@
-package hu.bme.aut.personaltaskmanager.model;
+package hu.bme.aut.personaltaskmanager.ui.handling_tasks;
 
 
 import android.content.DialogInterface;
@@ -17,8 +17,9 @@ import android.widget.TextView;
 import java.util.List;
 
 import hu.bme.aut.personaltaskmanager.R;
-import hu.bme.aut.personaltaskmanager.ui.handling_tasks.OnProjectSelectedListener;
-import hu.bme.aut.personaltaskmanager.ui.handling_tasks.project_fragments.NewProjectDialogFragment;
+import hu.bme.aut.personaltaskmanager.model.DataManager;
+import hu.bme.aut.personaltaskmanager.model.Project;
+import hu.bme.aut.personaltaskmanager.ui.handling_tasks.project_fragments.ProjectDialogFragment;
 
 public class ProjectRecyclerAdapter extends RecyclerView.Adapter<ProjectRecyclerAdapter.ProjectViewHolder>{
 
@@ -84,10 +85,10 @@ public class ProjectRecyclerAdapter extends RecyclerView.Adapter<ProjectRecycler
                         public boolean onMenuItemClick(MenuItem menuItem) {
                             Bundle b = new Bundle();
                             b.putInt(itemView.getContext().getString(R.string.project_position), getAdapterPosition());
-                            NewProjectDialogFragment dialog = new NewProjectDialogFragment();
+                            ProjectDialogFragment dialog = new ProjectDialogFragment();
                             dialog.setTargetFragment(parentFragment, EDIT_PROJECT_REQUEST_CODE);
                             dialog.setArguments(b);
-                            dialog.show(parentFragment.getFragmentManager(), NewProjectDialogFragment.TAG);
+                            dialog.show(parentFragment.getFragmentManager(), ProjectDialogFragment.TAG);
                             return true;
                         }
                     });

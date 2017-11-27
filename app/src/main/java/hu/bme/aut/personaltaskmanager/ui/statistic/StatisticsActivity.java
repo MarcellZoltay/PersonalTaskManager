@@ -4,7 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -40,12 +40,12 @@ import static hu.bme.aut.personaltaskmanager.model.DataManager.StatisticType.Wee
 public class StatisticsActivity extends AppCompatActivity {
 
     private LineChart weeklyChart;
-    private Button btnPrevWeekly;
-    private Button btnNextWeekly;
+    private ImageButton btnPrevWeekly;
+    private ImageButton btnNextWeekly;
 
     private BarChart monthlyChart;
-    private Button btnPrevMonthly;
-    private Button btnNextMonthly;
+    private ImageButton btnPrevMonthly;
+    private ImageButton btnNextMonthly;
 
     private int currentWeekOffset;
     private int currentMonthOffset;
@@ -59,7 +59,7 @@ public class StatisticsActivity extends AppCompatActivity {
         currentMonthOffset = 0;
 
         weeklyChart = (LineChart) findViewById(R.id.lcWeekly);
-        btnPrevWeekly = (Button) findViewById(R.id.btnWeeklyLeft);
+        btnPrevWeekly = (ImageButton) findViewById(R.id.btnWeeklyLeft);
         btnPrevWeekly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,7 +68,7 @@ public class StatisticsActivity extends AppCompatActivity {
                 Toast.makeText(StatisticsActivity.this, "Prev pressed: " + currentWeekOffset, Toast.LENGTH_SHORT).show();
             }
         });
-        btnNextWeekly = (Button) findViewById(R.id.btnWeeklyRight);
+        btnNextWeekly = (ImageButton) findViewById(R.id.btnWeeklyRight);
         btnNextWeekly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,7 +79,7 @@ public class StatisticsActivity extends AppCompatActivity {
         });
 
         monthlyChart = (BarChart) findViewById(R.id.bcMonthly);
-        btnPrevMonthly = (Button) findViewById(R.id.btnMonthlyLeft);
+        btnPrevMonthly = (ImageButton) findViewById(R.id.btnMonthlyLeft);
         btnPrevMonthly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,7 +88,7 @@ public class StatisticsActivity extends AppCompatActivity {
                 Toast.makeText(StatisticsActivity.this, "Prev pressed: " + currentMonthOffset, Toast.LENGTH_SHORT).show();
             }
         });
-        btnNextMonthly = (Button) findViewById(R.id.btnMonthlyRight);
+        btnNextMonthly = (ImageButton) findViewById(R.id.btnMonthlyRight);
         btnNextMonthly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="hu.bme.aut.personaltaskmanager.ui.handling_tasks.Next7DaysFragment">
+    tools:context="hu.bme.aut.personaltaskmanager.ui.handling_tasks.pages_of_viewpager.Next7DaysFragment">
 
     <!--
     <TextView

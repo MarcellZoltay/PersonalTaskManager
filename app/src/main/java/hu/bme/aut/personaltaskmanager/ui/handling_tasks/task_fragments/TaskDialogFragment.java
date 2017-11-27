@@ -23,10 +23,8 @@ import hu.bme.aut.personaltaskmanager.R;
 import hu.bme.aut.personaltaskmanager.model.DataManager;
 import hu.bme.aut.personaltaskmanager.model.Task;
 import hu.bme.aut.personaltaskmanager.ui.handling_tasks.DateFormatHelper;
-import hu.bme.aut.personaltaskmanager.ui.handling_tasks.DatePickerDialogFragment;
-import hu.bme.aut.personaltaskmanager.ui.handling_tasks.TimePickerDialogFragment;
 
-public class NewTaskDialogFragment extends DialogFragment
+public class TaskDialogFragment extends DialogFragment
         implements DatePickerDialogFragment.OnDateSelectedListener, TimePickerDialogFragment.OnTimeSelectedListener {
 
     public static final String TAG = "TaskDialogFragment";

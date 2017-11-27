@@ -13,9 +13,9 @@ import hu.bme.aut.personaltaskmanager.R;
 import hu.bme.aut.personaltaskmanager.model.DataManager;
 import hu.bme.aut.personaltaskmanager.model.Project;
 import hu.bme.aut.personaltaskmanager.model.Task;
-import hu.bme.aut.personaltaskmanager.ui.handling_tasks.task_fragments.NewTaskDialogFragment;
+import hu.bme.aut.personaltaskmanager.ui.handling_tasks.task_fragments.TaskDialogFragment;
 
-public class TaskDetailsActivity extends AppCompatActivity implements NewTaskDialogFragment.IEditTaskDialogListener{
+public class TaskDetailsActivity extends AppCompatActivity implements TaskDialogFragment.IEditTaskDialogListener{
 
     TextView tvTitle;
     TextView tvProject;
@@ -52,9 +52,9 @@ public class TaskDetailsActivity extends AppCompatActivity implements NewTaskDia
                 b.putString(getString(R.string.project_name), project.getTitle());
                 b.putInt(getString(R.string.project_position), projectPosition);
                 b.putInt(getString(R.string.task_position), taskPosition);
-                DialogFragment fragment = new NewTaskDialogFragment();
+                DialogFragment fragment = new TaskDialogFragment();
                 fragment.setArguments(b);
-                fragment.show(getSupportFragmentManager(), NewTaskDialogFragment.TAG);
+                fragment.show(getSupportFragmentManager(), TaskDialogFragment.TAG);
             }
         });
 
