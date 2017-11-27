@@ -1,4 +1,4 @@
-package hu.bme.aut.personaltaskmanager.ui.handling_tasks;
+package hu.bme.aut.personaltaskmanager.ui.handling_tasks.pages_of_viewpager;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,13 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.Calendar;
-import java.util.Date;
+import java.util.GregorianCalendar;
 
 import hu.bme.aut.personaltaskmanager.R;
 import hu.bme.aut.personaltaskmanager.model.Task;
-import hu.bme.aut.personaltaskmanager.model.TaskRecyclerAdapter;
+import hu.bme.aut.personaltaskmanager.ui.handling_tasks.ITaskFilter;
+import hu.bme.aut.personaltaskmanager.ui.handling_tasks.IUpdatablePageFragment;
+import hu.bme.aut.personaltaskmanager.ui.handling_tasks.TaskRecyclerAdapter;
 
-public class Next7DaysFragment extends Fragment {
+public class Next7DaysFragment extends Fragment implements IUpdatablePageFragment {
 
     private RecyclerView recycleView;
     private TaskRecyclerAdapter adapter;
@@ -33,16 +35,12 @@ public class Next7DaysFragment extends Fragment {
             public boolean Filter(Task t) {
                 Calendar c = Calendar.getInstance();
 
-                int today = c.get(Calendar.DAY_OF_MONTH);
+                Calendar today = new GregorianCalendar(c.get(Calendar.YEAR), c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
 
-                c.add(Calendar.DAY_OF_MONTH, 7);
-                int next7 = c.get(Calendar.DAY_OF_MONTH);
+                c.add(Calendar.DAY_OF_WEEK, 7);
+                Calendar next7 = new GregorianCalendar(c.get(Calendar.YEAR), c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH), 23, 59, 59);
 
-                Date d = new Date(t.getDate());
-                c.setTime(d);
-                int myDate = c.get(Calendar.DAY_OF_MONTH);
-
-                return myDate >= today && myDate <= next7;
+                return today.getTimeInMillis() <= t.getDate() && t.getDate() <= next7.getTimeInMillis();
             }
         });
         recycleView.setAdapter(adapter);
@@ -51,8 +49,7 @@ public class Next7DaysFragment extends Fragment {
     }
 
     @Override
-    public void onResume(){
-        super.onResume();
+    public void updatePage() {
         adapter.update();
     }
 }

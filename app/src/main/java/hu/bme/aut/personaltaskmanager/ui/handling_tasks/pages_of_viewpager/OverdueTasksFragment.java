@@ -1,4 +1,4 @@
-package hu.bme.aut.personaltaskmanager.ui.handling_tasks;
+package hu.bme.aut.personaltaskmanager.ui.handling_tasks.pages_of_viewpager;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,9 +14,11 @@ import java.util.Date;
 
 import hu.bme.aut.personaltaskmanager.R;
 import hu.bme.aut.personaltaskmanager.model.Task;
-import hu.bme.aut.personaltaskmanager.model.TaskRecyclerAdapter;
+import hu.bme.aut.personaltaskmanager.ui.handling_tasks.IUpdatablePageFragment;
+import hu.bme.aut.personaltaskmanager.ui.handling_tasks.TaskRecyclerAdapter;
+import hu.bme.aut.personaltaskmanager.ui.handling_tasks.ITaskFilter;
 
-public class TodayFragment extends Fragment {
+public class OverdueTasksFragment extends Fragment implements IUpdatablePageFragment{
 
     private RecyclerView recycleView;
     private TaskRecyclerAdapter adapter;
@@ -24,21 +26,30 @@ public class TodayFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_today, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_overdue_tasks, container, false);
 
-        recycleView = (RecyclerView) rootView.findViewById(R.id.TodayRecyclerView);
+        recycleView = (RecyclerView) rootView.findViewById(R.id.OverdueRecyclerView);
         recycleView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new TaskRecyclerAdapter(new ITaskFilter() {
             @Override
             public boolean Filter(Task t) {
+                if(t.isDone())
+                    return false;
+
+                if(t.isOverdue())
+                    return true;
+
                 Calendar c = Calendar.getInstance();
-                int today = c.get(Calendar.DAY_OF_MONTH);
+                long today = c.getTimeInMillis();
 
                 Date d = new Date(t.getDate());
                 c.setTime(d);
-                int myDate = c.get(Calendar.DAY_OF_MONTH);
+                long myDate = c.getTimeInMillis();
 
-                return today == myDate;
+                if(myDate < today)
+                    t.setOverdue(true);
+
+                return t.isOverdue();
             }
         });
         recycleView.setAdapter(adapter);
@@ -47,9 +58,7 @@ public class TodayFragment extends Fragment {
     }
 
     @Override
-    public void onResume(){
-        super.onResume();
+    public void updatePage() {
         adapter.update();
     }
-
 }

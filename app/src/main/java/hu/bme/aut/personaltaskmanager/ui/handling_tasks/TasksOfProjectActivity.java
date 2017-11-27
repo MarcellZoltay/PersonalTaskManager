@@ -12,10 +12,9 @@ import android.view.View;
 import hu.bme.aut.personaltaskmanager.R;
 import hu.bme.aut.personaltaskmanager.model.DataManager;
 import hu.bme.aut.personaltaskmanager.model.Task;
-import hu.bme.aut.personaltaskmanager.model.TaskRecyclerAdapter;
-import hu.bme.aut.personaltaskmanager.ui.handling_tasks.task_fragments.NewTaskDialogFragment;
+import hu.bme.aut.personaltaskmanager.ui.handling_tasks.task_fragments.TaskDialogFragment;
 
-public class TasksOfProjectActivity extends AppCompatActivity implements NewTaskDialogFragment.INewTaskDialogListener {
+public class TasksOfProjectActivity extends AppCompatActivity implements TaskDialogFragment.INewTaskDialogListener {
 
     private RecyclerView recyclerView;
     private TaskRecyclerAdapter adapter;
@@ -32,9 +31,9 @@ public class TasksOfProjectActivity extends AppCompatActivity implements NewTask
             public void onClick(View view) {
                 Bundle b = new Bundle();
                 b.putString(getString(R.string.project_name), getIntent().getStringExtra(getString(R.string.project_name)));
-                DialogFragment fragment = new NewTaskDialogFragment();
+                DialogFragment fragment = new TaskDialogFragment();
                 fragment.setArguments(b);
-                fragment.show(getSupportFragmentManager(), NewTaskDialogFragment.TAG);
+                fragment.show(getSupportFragmentManager(), TaskDialogFragment.TAG);
             }
         });
 

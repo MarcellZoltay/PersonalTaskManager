@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainMenuActivity">
+        <activity android:name=".ui.MainMenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,7 +34,7 @@
         <activity android:name=".ui.handling_tasks.TasksActivity" />
         <activity android:name=".ui.statistic.StatisticsActivity" />
         <activity android:name=".ui.handling_tasks.TasksOfProjectActivity" />
-        <activity android:name=".ui.handling_tasks.TaskDetailsActivity"></activity>
+        <activity android:name=".ui.handling_tasks.TaskDetailsActivity" />
     </application>
 
 </manifest>

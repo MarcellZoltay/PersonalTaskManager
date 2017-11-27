@@ -108,10 +108,6 @@ public class DataManager {
 
         Calendar c = Calendar.getInstance();
         long now = c.getTimeInMillis();
-        //c.setTimeInMillis(firstDay);
-        //Calendar first = new GregorianCalendar(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
-        //c.setTimeInMillis(lastDay);
-        //Calendar last = new GregorianCalendar(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), 23, 59, 59);
 
         StatisticItem s = items.get(0);
         for(Project p: projects)

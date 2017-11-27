@@ -17,7 +17,7 @@ import hu.bme.aut.personaltaskmanager.R;
 import hu.bme.aut.personaltaskmanager.model.DataManager;
 import hu.bme.aut.personaltaskmanager.model.Project;
 
-public class NewProjectDialogFragment extends DialogFragment {
+public class ProjectDialogFragment extends DialogFragment {
 
     public static final String TAG = "ProjectDialogFragment";
 

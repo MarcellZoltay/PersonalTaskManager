@@ -1,4 +1,4 @@
-package hu.bme.aut.personaltaskmanager.ui.handling_tasks;
+package hu.bme.aut.personaltaskmanager.ui.handling_tasks.task_fragments;
 
 import android.app.Dialog;
 import android.app.TimePickerDialog;

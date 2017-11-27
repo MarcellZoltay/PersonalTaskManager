@@ -1,4 +1,4 @@
-package hu.bme.aut.personaltaskmanager.ui.handling_tasks;
+package hu.bme.aut.personaltaskmanager.ui.handling_tasks.pages_of_viewpager;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,9 +11,11 @@ import android.view.ViewGroup;
 
 import hu.bme.aut.personaltaskmanager.R;
 import hu.bme.aut.personaltaskmanager.model.Task;
-import hu.bme.aut.personaltaskmanager.model.TaskRecyclerAdapter;
+import hu.bme.aut.personaltaskmanager.ui.handling_tasks.IUpdatablePageFragment;
+import hu.bme.aut.personaltaskmanager.ui.handling_tasks.TaskRecyclerAdapter;
+import hu.bme.aut.personaltaskmanager.ui.handling_tasks.ITaskFilter;
 
-public class CompletedTasksFragment extends Fragment {
+public class CompletedTasksFragment extends Fragment implements IUpdatablePageFragment{
 
     private RecyclerView recycleView;
     private TaskRecyclerAdapter adapter;
@@ -37,8 +39,7 @@ public class CompletedTasksFragment extends Fragment {
     }
 
     @Override
-    public void onResume(){
-        super.onResume();
+    public void updatePage() {
         adapter.update();
     }
 }

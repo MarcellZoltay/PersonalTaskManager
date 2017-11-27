@@ -1,4 +1,4 @@
-package hu.bme.aut.personaltaskmanager.model;
+package hu.bme.aut.personaltaskmanager.ui.handling_tasks;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,9 +11,8 @@ import android.widget.TextView;
 import java.util.List;
 
 import hu.bme.aut.personaltaskmanager.R;
-import hu.bme.aut.personaltaskmanager.ui.handling_tasks.DateFormatHelper;
-import hu.bme.aut.personaltaskmanager.ui.handling_tasks.ITaskFilter;
-import hu.bme.aut.personaltaskmanager.ui.handling_tasks.OnTaskSelectedListener;
+import hu.bme.aut.personaltaskmanager.model.DataManager;
+import hu.bme.aut.personaltaskmanager.model.Task;
 
 public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapter.TaskViewHolder> {
 

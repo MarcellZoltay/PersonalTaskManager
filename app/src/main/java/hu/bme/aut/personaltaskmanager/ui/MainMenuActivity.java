@@ -1,4 +1,4 @@
-package hu.bme.aut.personaltaskmanager;
+package hu.bme.aut.personaltaskmanager.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 
+import hu.bme.aut.personaltaskmanager.R;
 import hu.bme.aut.personaltaskmanager.ui.handling_tasks.TasksActivity;
 import hu.bme.aut.personaltaskmanager.ui.statistic.StatisticsActivity;
 

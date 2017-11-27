@@ -16,29 +16,46 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <Button
+            <ImageButton
                 android:id="@+id/btnWeeklyLeft"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Prev" />
-            <TextView
+                android:src="@drawable/ic_arrow_back_36pt" />
+
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textAlignment="center"
-                android:text="@string/weekly" />
-            <Button
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/weekly"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/tvWeek"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"/>
+
+            </LinearLayout>
+
+            <ImageButton
                 android:id="@+id/btnWeeklyRight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Next" />
+                android:src="@drawable/ic_arrow_forward_36pt" />
         </LinearLayout>
 
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/lcWeekly"
             android:layout_width="match_parent"
-            android:minHeight="400dp"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:minHeight="400dp" />
 
 
         <LinearLayout
@@ -46,29 +63,46 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <Button
+            <ImageButton
                 android:id="@+id/btnMonthlyLeft"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Prev" />
-            <TextView
+                android:src="@drawable/ic_arrow_back_36pt" />
+
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textAlignment="center"
-                android:text="@string/monthly" />
-            <Button
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/monthly"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/tvMonth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"/>
+
+            </LinearLayout>
+
+            <ImageButton
                 android:id="@+id/btnMonthlyRight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Next" />
+                android:src="@drawable/ic_arrow_forward_36pt" />
         </LinearLayout>
 
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/bcMonthly"
             android:layout_width="match_parent"
-            android:minHeight="400dp"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:minHeight="400dp" />
 
 
     </LinearLayout>
