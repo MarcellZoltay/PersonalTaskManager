@@ -1,9 +1,10 @@
 package hu.bme.aut.personaltaskmanager.ui.handling_tasks;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
@@ -15,7 +16,7 @@ import hu.bme.aut.personaltaskmanager.ui.handling_tasks.pages_of_viewpager.Overd
 import hu.bme.aut.personaltaskmanager.ui.handling_tasks.pages_of_viewpager.ProjectsFragment;
 import hu.bme.aut.personaltaskmanager.ui.handling_tasks.pages_of_viewpager.TodayFragment;
 
-public class TasksActivity extends FragmentActivity {
+public class TasksActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class TasksActivity extends FragmentActivity {
         vpTasks.setAdapter(adapter);
 
         SmartTabLayout viewPagerTab = (SmartTabLayout) findViewById(R.id.viewpagertab);
+        viewPagerTab.setBackgroundColor(Color.parseColor("#2c3e50"));
         viewPagerTab.setViewPager(vpTasks);
         viewPagerTab.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

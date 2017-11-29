@@ -1,31 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:paddingBottom="8dip"
-    android:paddingLeft="8dip"
-    android:paddingRight="8dip"
-    android:paddingTop="8dip">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingBottom="10dip"
+    android:paddingLeft="10dip"
+    android:paddingRight="10dip"
+    android:paddingTop="10dip"
+    app:cardCornerRadius="10dp">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-    <ImageView
-        android:id="@+id/ProjectFolderIconImageView"
-        android:layout_width="64dip"
-        android:layout_height="64dip"
-        android:layout_marginLeft="8dip"
-        android:gravity="center_vertical"
-        android:padding="8dip"
-        android:src="@drawable/ic_folder_open_black_36dp" />
+        <ImageView
+            android:id="@+id/ProjectFolderIconImageView"
+            android:layout_width="64dip"
+            android:layout_height="64dip"
+            android:layout_marginLeft="8dip"
+            android:gravity="center_vertical"
+            android:padding="8dip"
+            android:src="@drawable/ic_folder_open_black_36dp" />
 
-    <TextView
-        android:id="@+id/ProjectTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_gravity="center_vertical"
-        android:paddingLeft="10dp"
-        android:textSize="20sp" />
+        <TextView
+            android:id="@+id/ProjectTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:textSize="20sp"
+            android:textColor="@color/colorBlack"/>
 
-</LinearLayout>
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

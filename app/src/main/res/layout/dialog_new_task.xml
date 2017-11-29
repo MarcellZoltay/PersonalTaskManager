@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="false"
-    android:padding="4dp"
+    android:padding="3dp"
     android:scrollbarStyle="outsideInset">
 
     <LinearLayout
@@ -15,8 +15,7 @@
 
         <!-- TITLE -->
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/DialogTitle"
             android:text="@string/title" />
 
         <EditText
@@ -26,28 +25,28 @@
 
         <!--Date -->
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/DialogTitle"
+            android:paddingTop="10dp"
             android:text="@string/date" />
 
         <Button
             android:id="@+id/TaskDateButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            android:text="DATE" />
+            android:background="@null"
+            android:text="@string/dialog_date" />
 
         <Button
             android:id="@+id/TaskTimeButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            android:text="TIME"/>
+            android:background="@null"
+            android:text="@string/dialog_time"/>
 
         <!-- NOTE -->
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/DialogTitle"
+            android:paddingTop="10dp"
             android:text="@string/note" />
 
         <EditText

@@ -41,5 +41,8 @@
     <string name="cancel">Cancel</string>
     <string name="weekly">Weekly</string>
     <string name="monthly">Monthly</string>
+    <string name="week_label">week</string>
+    <string name="dialog_date">DATE</string>
+    <string name="dialog_time">TIME</string>
 
 </resources>
