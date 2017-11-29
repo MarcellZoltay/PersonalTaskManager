@@ -6,7 +6,6 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import hu.bme.aut.personaltaskmanager.R;
@@ -14,6 +13,7 @@ import hu.bme.aut.personaltaskmanager.model.DataManager;
 import hu.bme.aut.personaltaskmanager.model.Project;
 import hu.bme.aut.personaltaskmanager.model.Task;
 import hu.bme.aut.personaltaskmanager.ui.handling_tasks.task_fragments.TaskDialogFragment;
+import info.hoang8f.widget.FButton;
 
 public class TaskDetailsActivity extends AppCompatActivity implements TaskDialogFragment.IEditTaskDialogListener{
 
@@ -44,7 +44,7 @@ public class TaskDetailsActivity extends AppCompatActivity implements TaskDialog
         tvNote = (TextView) findViewById(R.id.tvNoteOfTask);
         tvNote.setText(t.getNote());
 
-        Button btnEdit = (Button) findViewById(R.id.btnEditTask);
+        FButton btnEdit = (FButton) findViewById(R.id.btnEditTask);
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,7 +58,7 @@ public class TaskDetailsActivity extends AppCompatActivity implements TaskDialog
             }
         });
 
-        Button btnDelete = (Button) findViewById(R.id.btnDeleteTask);
+        FButton btnDelete = (FButton) findViewById(R.id.btnDeleteTask);
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

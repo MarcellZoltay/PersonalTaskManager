@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
@@ -33,6 +33,7 @@ import java.util.List;
 import hu.bme.aut.personaltaskmanager.R;
 import hu.bme.aut.personaltaskmanager.model.DataManager;
 import hu.bme.aut.personaltaskmanager.model.StatisticItem;
+import hu.bme.aut.personaltaskmanager.ui.handling_tasks.DateFormatHelper;
 
 import static hu.bme.aut.personaltaskmanager.model.DataManager.StatisticType.Monthly;
 import static hu.bme.aut.personaltaskmanager.model.DataManager.StatisticType.Weekly;
@@ -42,10 +43,12 @@ public class StatisticsActivity extends AppCompatActivity {
     private LineChart weeklyChart;
     private ImageButton btnPrevWeekly;
     private ImageButton btnNextWeekly;
+    private TextView tvWeek;
 
     private BarChart monthlyChart;
     private ImageButton btnPrevMonthly;
     private ImageButton btnNextMonthly;
+    private TextView tvMonth;
 
     private int currentWeekOffset;
     private int currentMonthOffset;
@@ -58,6 +61,9 @@ public class StatisticsActivity extends AppCompatActivity {
         currentWeekOffset = 0;
         currentMonthOffset = 0;
 
+        tvWeek = (TextView) findViewById(R.id.tvWeek);
+        tvMonth = (TextView) findViewById(R.id.tvMonth);
+
         weeklyChart = (LineChart) findViewById(R.id.lcWeekly);
         btnPrevWeekly = (ImageButton) findViewById(R.id.btnWeeklyLeft);
         btnPrevWeekly.setOnClickListener(new View.OnClickListener() {
@@ -65,7 +71,6 @@ public class StatisticsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 currentWeekOffset--;
                 loadWeeklyDatas(currentWeekOffset);
-                Toast.makeText(StatisticsActivity.this, "Prev pressed: " + currentWeekOffset, Toast.LENGTH_SHORT).show();
             }
         });
         btnNextWeekly = (ImageButton) findViewById(R.id.btnWeeklyRight);
@@ -74,7 +79,6 @@ public class StatisticsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 currentWeekOffset++;
                 loadWeeklyDatas(currentWeekOffset);
-                Toast.makeText(StatisticsActivity.this, "Next pressed: " + currentWeekOffset, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -85,7 +89,6 @@ public class StatisticsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 currentMonthOffset--;
                 loadMonthlyDatas(currentMonthOffset);
-                Toast.makeText(StatisticsActivity.this, "Prev pressed: " + currentMonthOffset, Toast.LENGTH_SHORT).show();
             }
         });
         btnNextMonthly = (ImageButton) findViewById(R.id.btnMonthlyRight);
@@ -94,7 +97,6 @@ public class StatisticsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 currentMonthOffset++;
                 loadMonthlyDatas(currentMonthOffset);
-                Toast.makeText(StatisticsActivity.this, "Next pressed: " + currentMonthOffset, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -161,6 +163,8 @@ public class StatisticsActivity extends AppCompatActivity {
         c.add(Calendar.DAY_OF_WEEK, (-today+2)+(weekOffset*7));
         Calendar firstDay = new GregorianCalendar(c.get(Calendar.YEAR),
                 c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
+
+        tvWeek.setText(new StringBuilder().append(DateFormatHelper.getFormattedDate(c.getTimeInMillis(), "yyyy. MMM\nW. ")).append(getString(R.string.week_label)).toString());
 
         c.add(Calendar.DAY_OF_WEEK, today+(7-today)-1);
         Calendar lastDay = new GregorianCalendar(c.get(Calendar.YEAR),
@@ -264,6 +268,8 @@ public class StatisticsActivity extends AppCompatActivity {
 
         c.add(Calendar.MONTH, monthOffset);
         int daysOfMonth = c.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+        tvMonth.setText(DateFormatHelper.getFormattedDate(c.getTimeInMillis(), "yyyy. MMM"));
 
         Calendar firstDay = new GregorianCalendar(c.get(Calendar.YEAR),
                 c.get(Calendar.MONTH), 1, 0, 0, 0);
