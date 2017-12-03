@@ -64,7 +64,7 @@ public class TaskDetailsActivity extends AppCompatActivity implements TaskDialog
             public void onClick(View view) {
                 AlertDialog.Builder adb = new AlertDialog.Builder(view.getContext());
                 adb.setMessage(R.string.delete_task_alert_msg);
-                adb.setTitle("Delete " + t.getTitle() + " Task");
+                adb.setTitle(getString(R.string.delete) + " " + t.getTitle() + " " + getString(R.string.task));
                 adb.setIcon(android.R.drawable.ic_dialog_alert);
                 adb.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override

@@ -106,7 +106,15 @@ public class StatisticsActivity extends AppCompatActivity {
 
     private void initWeeklyChart(){
         // X AXIS
-        final String[] xLabel = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+        final String[] xLabel = {
+                getString(R.string.monday),
+                getString(R.string.tuesday),
+                getString(R.string.wednesday),
+                getString(R.string.thursday),
+                getString(R.string.friday),
+                getString(R.string.saturday),
+                getString(R.string.sunday)
+        };
 
         XAxis xAxis = weeklyChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -114,7 +122,6 @@ public class StatisticsActivity extends AppCompatActivity {
         xAxis.setAxisLineWidth(2f);
         xAxis.setAxisLineColor(Color.BLACK);
         xAxis.setLabelRotationAngle((float)45.0);
-        //xAxis.setDrawGridLines(false);
         xAxis.setTextColor(Color.BLACK);
         xAxis.setTextSize(10f);
         xAxis.setLabelCount(7, true);
@@ -182,17 +189,17 @@ public class StatisticsActivity extends AppCompatActivity {
             entryOverdueTasks.add(new Entry(i, statItems.get(i).getOverdue()));
         }
 
-        LineDataSet dataSetAllTasks = new LineDataSet(entryAllTasks, "All");
+        LineDataSet dataSetAllTasks = new LineDataSet(entryAllTasks, getString(R.string.all));
         dataSetAllTasks.setColor(Color.BLUE);
         dataSetAllTasks.setCircleColor(Color.BLUE);
         dataSetAllTasks.setCircleColorHole(Color.WHITE);
         dataSetAllTasks.setDrawValues(false);
-        LineDataSet dataSetDoneTasks = new LineDataSet(entryDoneTasks, "Done");
+        LineDataSet dataSetDoneTasks = new LineDataSet(entryDoneTasks, getString(R.string.done));
         dataSetDoneTasks.setColor(Color.GREEN);
         dataSetDoneTasks.setCircleColor(Color.GREEN);
         dataSetDoneTasks.setCircleColorHole(Color.WHITE);
         dataSetDoneTasks.setDrawValues(false);
-        LineDataSet dataSetOverdueTasks = new LineDataSet(entryOverdueTasks, "Overdue");
+        LineDataSet dataSetOverdueTasks = new LineDataSet(entryOverdueTasks, getString(R.string.overdue));
         dataSetOverdueTasks.setColor(Color.RED);
         dataSetOverdueTasks.setCircleColor(Color.RED);
         dataSetOverdueTasks.setCircleColorHole(Color.WHITE);
@@ -211,7 +218,11 @@ public class StatisticsActivity extends AppCompatActivity {
 
     private void initMonthlyChart(){
         // X AXIS
-        final String[] xLabel = { "All", "Done", "Overdue"};
+        final String[] xLabel = {
+                getString(R.string.all),
+                getString(R.string.done),
+                getString(R.string.overdue)
+        };
 
         XAxis xAxis = monthlyChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -222,7 +233,6 @@ public class StatisticsActivity extends AppCompatActivity {
         xAxis.setDrawGridLines(false);
         xAxis.setTextColor(Color.BLACK);
         xAxis.setTextSize(10f);
-        //xAxis.setLabelCount(3, true);
         xAxis.setDrawLabels(false);
 
         xAxis.setValueFormatter(new IAxisValueFormatter() {
@@ -237,11 +247,6 @@ public class StatisticsActivity extends AppCompatActivity {
         monthlyChart.getAxisLeft().setEnabled(false);
         YAxis yAxis = monthlyChart.getAxisLeft();
         yAxis.setAxisMinimum(0f);
-        //yAxis.setXOffset(10f);
-        //yAxis.setAxisLineWidth(2f);
-        //yAxis.setAxisLineColor(Color.BLACK);
-        ////yAxis.setDrawGridLines(false);
-        //yAxis.setTextColor(Color.BLACK);
         yAxis.setGranularityEnabled(true);
         yAxis.setGranularity(1f);
 
@@ -287,7 +292,7 @@ public class StatisticsActivity extends AppCompatActivity {
         entryOverdueTasks.add(new BarEntry(2, statItems.get(0).getOverdue()));
 
 
-        BarDataSet dataSetAllTasks = new BarDataSet(entryAllTasks, "All");
+        BarDataSet dataSetAllTasks = new BarDataSet(entryAllTasks, getString(R.string.all));
         dataSetAllTasks.setColor(Color.BLUE);
         dataSetAllTasks.setValueFormatter(new IValueFormatter() {
             @Override
@@ -298,7 +303,7 @@ public class StatisticsActivity extends AppCompatActivity {
         dataSetAllTasks.setBarBorderWidth(1f);
         dataSetAllTasks.setBarShadowColor(Color.GRAY);
 
-        BarDataSet dataSetDoneTasks = new BarDataSet(entryDoneTasks, "Done");
+        BarDataSet dataSetDoneTasks = new BarDataSet(entryDoneTasks, getString(R.string.done));
         dataSetDoneTasks.setColor(Color.GREEN);
         dataSetDoneTasks.setValueFormatter(new IValueFormatter() {
             @Override
@@ -309,7 +314,7 @@ public class StatisticsActivity extends AppCompatActivity {
         dataSetDoneTasks.setBarBorderWidth(1f);
         dataSetDoneTasks.setBarShadowColor(Color.GRAY);
 
-        BarDataSet dataSetOverdueTasks = new BarDataSet(entryOverdueTasks, "Overdue");
+        BarDataSet dataSetOverdueTasks = new BarDataSet(entryOverdueTasks, getString(R.string.overdue));
         dataSetOverdueTasks.setColor(Color.RED);
         dataSetOverdueTasks.setValueFormatter(new IValueFormatter() {
             @Override

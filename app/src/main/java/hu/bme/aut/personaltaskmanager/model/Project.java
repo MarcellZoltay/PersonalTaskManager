@@ -11,18 +11,11 @@ public class Project extends SugarRecord {
     private List<Task> tasks;
 
     public Project(){ tasks = new ArrayList<>(); }
-    public Project(String title){
-        tasks = new ArrayList<>();
-        this.title = title;
-    }
 
     public void addTask(Task t){
         tasks.add(t);
     }
 
-    public Task removeTask(int i){
-        return tasks.remove(i);
-    }
     public boolean removeTask(Task t){
         return tasks.remove(t);
     }

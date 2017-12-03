@@ -1,7 +1,5 @@
 package hu.bme.aut.personaltaskmanager.model;
 
-import android.os.AsyncTask;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -20,7 +18,6 @@ public class DataManager {
     private DataManager() {
         projects = new ArrayList<>();
 
-        //loadItemsInBackground();
         projects = Project.listAll(Project.class);
         List<Task> tasks = Task.listAll(Task.class);
         for(Task t: tasks) {
@@ -34,23 +31,6 @@ public class DataManager {
     public static DataManager getInstance() {
         return instance;
     }
-
-    private void loadItemsInBackground() {
-        new AsyncTask<Void, Void, List<Project>>() {
-
-            @Override
-            protected List<Project> doInBackground(Void... voids) {
-                return Project.listAll(Project.class);
-            }
-
-            @Override
-            protected void onPostExecute(List<Project> projectItems) {
-                super.onPostExecute(projectItems);
-                projects.addAll(projectItems);
-            }
-        }.execute();
-    }
-
 
     // PROJECT
     public List<Project> getProjects(){

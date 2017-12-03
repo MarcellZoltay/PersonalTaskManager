@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -57,7 +56,6 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
 
     public class TaskViewHolder extends RecyclerView.ViewHolder{
 
-        ImageView iconImageView;
         CheckBox isDoneCheckbox;
         TextView titleTextView;
         TextView dateTextView;
@@ -65,7 +63,6 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
         public TaskViewHolder(final View itemView) {
             super(itemView);
 
-            //iconImageView = (ImageView) itemView.findViewById(R.id.TaskFolderIconImageView);
             isDoneCheckbox = (CheckBox) itemView.findViewById(R.id.TaskDoneCheckBox);
             isDoneCheckbox.setOnClickListener(new View.OnClickListener() {
                 @Override
