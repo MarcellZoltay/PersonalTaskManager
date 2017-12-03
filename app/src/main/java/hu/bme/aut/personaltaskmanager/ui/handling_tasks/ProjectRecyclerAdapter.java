@@ -97,7 +97,7 @@ public class ProjectRecyclerAdapter extends RecyclerView.Adapter<ProjectRecycler
                         public boolean onMenuItemClick(MenuItem menuItem) {
                             AlertDialog.Builder adb = new AlertDialog.Builder(itemView.getContext());
                             adb.setMessage(R.string.delete_project_alert_msg);
-                            adb.setTitle("Delete " + projects.get(getAdapterPosition()).getTitle() + " Project");
+                            adb.setTitle(itemView.getContext().getString(R.string.delete) + " " + projects.get(getAdapterPosition()).getTitle() + " " + itemView.getContext().getString(R.string.project));
                             adb.setIcon(android.R.drawable.ic_dialog_alert);
                             adb.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                                 @Override
